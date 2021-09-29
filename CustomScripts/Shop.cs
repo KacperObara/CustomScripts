@@ -23,7 +23,7 @@ namespace CustomScripts
         {
             if (GameManager.Instance.TryRemovePoints(Cost))
             {
-                foreach (var spawner in ItemSpawners)
+                foreach (ItemSpawner spawner in ItemSpawners)
                 {
                     spawner.Spawn();
                 }
