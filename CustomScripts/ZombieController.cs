@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FistVR;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace CustomScripts
@@ -82,6 +83,10 @@ namespace CustomScripts
             if (Health <= 0)
                 return;
 
+            float newDamage = Damage * Player.Instance.DamageModifier;
+            Damage = (int) newDamage;
+
+            AudioManager.Instance.ZombieHitSound.Play();
             GameManager.Instance.AddPoints(PointsOnHit);
             Health -= Damage;
 
@@ -104,7 +109,7 @@ namespace CustomScripts
             if (player == null)
                 return;
 
-            if (Health <= 0 || State == State.Dead) // second condition should be enough
+            if (State == State.Dead) // || Player.Instance.IsInvincible)
                 return;
 
             // For some reason, PlayerTrigger is often called absolutely randomly, and I don't know why,
@@ -112,6 +117,12 @@ namespace CustomScripts
             if (GameReferences.Instance.IsPlayerClose(transform, 3f))
             {
                 GameManager.Instance.KillPlayer();
+
+                //GM.CurrentPlayerBody.Health -= 2500;
+                //Player.Instance.OnPlayerHit();
+
+                //if (GM.CurrentPlayerBody.Health <= 0)
+                //    GameManager.Instance.KillPlayer();
             }
         }
     }

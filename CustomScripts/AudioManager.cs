@@ -18,7 +18,9 @@ namespace CustomScripts
         public List<AudioClip> CloseZombieSounds;
 
         public AudioSource BuySound;
+        public AudioSource DrinkSound;
 
+        public AudioSource ZombieHitSound;
         public AudioSource ZombieDeathSound;
 
         public AudioSource RoundStartSound;

@@ -63,6 +63,9 @@
     <Compile Include="AudioManager.cs" />
     <Compile Include="GameReferences.cs" />
     <Compile Include="HighscoreShower.cs" />
+    <Compile Include="PerkBottle.cs" />
+    <Compile Include="PerkShop.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="SoundPoolableObject.cs" />
     <Compile Include="Blockade.cs" />
     <Compile Include="CustomDebug.cs" />
@@ -75,6 +78,8 @@
     <Compile Include="Shop.cs" />
     <Compile Include="SoundPool.cs" />
     <Compile Include="StatPanel.cs" />
+    <Compile Include="DebugDamagableText.cs" />
+    <Compile Include="ZombieBodyPart.cs" />
     <Compile Include="ZombieController.cs" />
     <Compile Include="ZombiePool.cs" />
   </ItemGroup>
