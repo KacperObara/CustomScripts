@@ -36,8 +36,7 @@ namespace CustomScripts
         {
             Points += amount;
             TotalPoints += amount;
-            if (OnPointsChanged != null)
-                OnPointsChanged.Invoke();
+            OnPointsChanged?.Invoke();
         }
 
         public bool TryRemovePoints(int amount)
@@ -45,8 +44,7 @@ namespace CustomScripts
             if (Points >= amount)
             {
                 Points -= amount;
-                if (OnPointsChanged != null)
-                    OnPointsChanged.Invoke();
+                OnPointsChanged?.Invoke();
                 return true;
             }
 
