@@ -10,7 +10,7 @@ namespace CustomScripts
 
         public void Initialize()
         {
-            Invoke("PlayRandomSound", Random.Range(4f, 6f));
+            Invoke(nameof(PlayRandomSound), Random.Range(4f, 6f));
         }
 
         void PlayRandomSound()
@@ -40,7 +40,7 @@ namespace CustomScripts
 
             soundPoolable.AudioSource.Play();
 
-            Invoke("PlayRandomSound", Random.Range(4f, 6f)); // TODO possible stack overflow? / Expensive method
+            Invoke(nameof(PlayRandomSound), Random.Range(4f, 6f)); // TODO possible stack overflow? / Expensive method
         }
     }
 }

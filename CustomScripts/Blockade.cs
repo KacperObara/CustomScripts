@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CustomScripts
@@ -24,13 +25,11 @@ namespace CustomScripts
 
             alreadyUsed = true;
 
-            for (int i = 0; i < UnlockableZombieSpawnPoints.Count; i++)
+            //LINQ! - Just a less verbose way of writing things
+            foreach (Transform zombieSP in UnlockableZombieSpawnPoints.Where(zombieSP => !zombieSP.gameObject.activeInHierarchy))
             {
-                if (!UnlockableZombieSpawnPoints[i].gameObject.activeInHierarchy)
-                {
-                    UnlockableZombieSpawnPoints[i].gameObject.SetActive(true);
-                    GameManager.Instance.ZombieSpawnPoints.Add(UnlockableZombieSpawnPoints[i]);
-                }
+                zombieSP.gameObject.SetActive(true);
+                GameManager.Instance.ZombieSpawnPoints.Add(zombieSP);
             }
 
             AudioManager.Instance.BuySound.Play();
