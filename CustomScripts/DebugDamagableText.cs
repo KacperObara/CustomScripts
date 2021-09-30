@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace CustomScripts
 {
+    /// <summary>
+    /// Script for checking the damage of weapons/bullets
+    /// </summary>
     public class DebugDamagableText : MonoBehaviour, IFVRDamageable
     {
         public Text Text1;

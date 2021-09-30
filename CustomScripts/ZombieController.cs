@@ -1,6 +1,8 @@
-﻿using FistVR;
+﻿using System.Collections;
+using FistVR;
 using UnityEngine;
 using UnityEngine.AI;
+using WurstMod.MappingComponents.Generic;
 
 namespace CustomScripts
 {
@@ -22,6 +24,8 @@ namespace CustomScripts
         [HideInInspector] public State State;
         [HideInInspector] public float Health;
 
+        public GameObject HeadObject;
+
         private float agentUpdateTimer;
         private const float agentUpdateInterval = 1f;
 
@@ -37,6 +41,9 @@ namespace CustomScripts
             soundPlayer = GetComponent<RandomZombieSound>();
 
             player = GameReferences.Instance.Player;
+
+            //GetComponent<Trigger>().enterEvent.AddListener(OnPlayerTouch);
+            //GetComponent<Trigger>().enterEvent.AddListener(OnPlayerStopTouch);
         }
 
         public void Initialize()
@@ -109,20 +116,38 @@ namespace CustomScripts
             if (player == null)
                 return;
 
-            if (State == State.Dead) // || Player.Instance.IsInvincible)
+            if (State == State.Dead)
                 return;
 
-            // For some reason, PlayerTrigger is often called absolutely randomly, and I don't know why,
-            // My quick solution is to check the distance from the player when it's called
-            if (GameReferences.Instance.IsPlayerClose(transform, 3f))
-            {
+
+            AudioManager.Instance.PlayerHitSound.Play();
+            GM.CurrentPlayerBody.Health -= 2500;
+            StartCoroutine(CheckStillColliding());
+
+            if (GM.CurrentPlayerBody.Health <= 0)
                 GameManager.Instance.KillPlayer();
+        }
 
-                //GM.CurrentPlayerBody.Health -= 2500;
-                //Player.Instance.OnPlayerHit();
 
-                //if (GM.CurrentPlayerBody.Health <= 0)
-                //    GameManager.Instance.KillPlayer();
+        private int playertouches = 0;
+
+        public void OnPlayerTouch()
+        {
+            playertouches++;
+            OnHitPlayer();
+        }
+
+        public void OnPlayerStopTouch()
+        {
+            playertouches--;
+        }
+
+        private IEnumerator CheckStillColliding()
+        {
+            yield return new WaitForSeconds(2f);
+            if (playertouches != 0)
+            {
+                OnHitPlayer();
             }
         }
     }

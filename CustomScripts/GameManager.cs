@@ -29,6 +29,7 @@ namespace CustomScripts
 
         public EndPanel EndPanel;
 
+        public List<ZombieController> AllZombies;
         [HideInInspector] public List<ZombieController> ExistingZombies;
         public List<Transform> ZombieSpawnPoints;
 
@@ -36,8 +37,9 @@ namespace CustomScripts
         {
             Points += amount;
             TotalPoints += amount;
-            if (OnPointsChanged != null)
-                OnPointsChanged.Invoke();
+            // if (OnPointsChanged != null)
+            //     OnPointsChanged.Invoke();
+            OnPointsChanged?.Invoke();
         }
 
         public bool TryRemovePoints(int amount)

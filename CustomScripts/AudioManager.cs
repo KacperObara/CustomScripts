@@ -27,5 +27,7 @@ namespace CustomScripts
         public AudioSource RoundEndSound;
 
         public AudioSource EndMusic;
+
+        public AudioSource PlayerHitSound;
     }
 }
