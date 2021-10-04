@@ -16,6 +16,9 @@ namespace CustomScripts
                 Instance = this;
         }
 
+        public PowerUpView PowerUpView;
+
         public float DamageModifier = 1f;
+        public float MoneyModifier = 1f;
     }
 }

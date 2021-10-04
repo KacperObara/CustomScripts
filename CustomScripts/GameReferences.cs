@@ -23,8 +23,10 @@ namespace CustomScripts
 
         private void Start()
         {
-#if !UNITY_EDITOR
-            Player = FistVR.GM.CurrentPlayerBody.transform;
+#if !UNITY_EDITOR // TODO define directives don't work for me for some reason
+
+            if (FistVR.GM.CurrentPlayerBody != null)
+                Player = FistVR.GM.CurrentPlayerBody.transform;
 #endif
         }
 

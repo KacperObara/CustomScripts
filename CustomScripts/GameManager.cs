@@ -31,14 +31,16 @@ namespace CustomScripts
 
         public List<ZombieController> AllZombies;
         [HideInInspector] public List<ZombieController> ExistingZombies;
-        public List<Transform> ZombieSpawnPoints;
+        public List<ZombieSpawnPoint> ZombieSpawnPoints;
 
         public void AddPoints(int amount)
         {
+            float newAmount = amount * Player.Instance.MoneyModifier;
+            amount = (int) newAmount;
+
             Points += amount;
             TotalPoints += amount;
-            // if (OnPointsChanged != null)
-            //     OnPointsChanged.Invoke();
+
             OnPointsChanged?.Invoke();
         }
 
@@ -47,8 +49,7 @@ namespace CustomScripts
             if (Points >= amount)
             {
                 Points -= amount;
-                if (OnPointsChanged != null)
-                    OnPointsChanged.Invoke();
+                OnPointsChanged?.Invoke();
                 return true;
             }
 
@@ -59,6 +60,7 @@ namespace CustomScripts
         {
             int random = Random.Range(0, ZombieSpawnPoints.Count);
 
+            //zombie.LastSpawnPoint = ZombieSpawnPoints[random];
             zombie.transform.position = ZombieSpawnPoints[random].transform.position;
 
             zombie.Initialize();
@@ -74,8 +76,9 @@ namespace CustomScripts
 
             RoundManager.Instance.ZombiesLeft--;
 
-            if (RoundManager.OnZombiesLeftChanged != null)
-                RoundManager.OnZombiesLeftChanged.Invoke();
+            RoundManager.OnZombiesLeftChanged?.Invoke();
+            RoundManager.OnZombieKilled?.Invoke(controller.gameObject);
+
 
             if (ExistingZombies.Count == 0)
                 RoundManager.Instance.EndRound();

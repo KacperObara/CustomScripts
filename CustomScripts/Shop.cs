@@ -14,6 +14,8 @@ namespace CustomScripts
 
         public List<ItemSpawner> ItemSpawners;
 
+        private bool alreadyUsed = false;
+
         private void Start()
         {
             CostText.text = Cost.ToString();
@@ -21,8 +23,13 @@ namespace CustomScripts
 
         public void TryBuying()
         {
+            if (alreadyUsed)
+                return;
+
             if (GameManager.Instance.TryRemovePoints(Cost))
             {
+                alreadyUsed = true;
+
                 foreach (ItemSpawner spawner in ItemSpawners)
                 {
                     spawner.Spawn();

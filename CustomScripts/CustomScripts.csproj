@@ -54,13 +54,26 @@
     <Compile Include="AudioManager.cs" />
     <Compile Include="BiggerZombieHitBoxPerkBottle.cs" />
     <Compile Include="CustomPlayerTrigger.cs" />
+    <Compile Include="CustomTrigger.cs" />
+    <Compile Include="DropPlankZone.cs" />
     <Compile Include="ExtraHealthPerkBottle.cs" />
     <Compile Include="GameReferences.cs" />
+    <Compile Include="GameSettings.cs" />
+    <Compile Include="GameSettingsView.cs" />
     <Compile Include="HighscoreShower.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="ExtraDamagePerkBottle.cs" />
+    <Compile Include="LeverWrapper.cs" />
+    <Compile Include="LeverWrapperMysteryBox.cs" />
+    <Compile Include="MonoBehaviourSingleton.cs" />
+    <Compile Include="MysteryBoxMover.cs" />
     <Compile Include="PerkShop.cs" />
+    <Compile Include="Plank.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PowerUpMgr.cs" />
+    <Compile Include="PowerUpNuke.cs" />
+    <Compile Include="PowerUpX2.cs" />
+    <Compile Include="PowerUpView.cs" />
     <Compile Include="SoundPoolableObject.cs" />
     <Compile Include="Blockade.cs" />
     <Compile Include="CustomDebug.cs" />
@@ -74,9 +87,15 @@
     <Compile Include="SoundPool.cs" />
     <Compile Include="StatPanel.cs" />
     <Compile Include="DebugDamagableText.cs" />
+    <Compile Include="TestAmmo.cs" />
+    <Compile Include="TestPlayerCol.cs" />
+    <Compile Include="TestTrigger.cs" />
+    <Compile Include="Window.cs" />
+    <Compile Include="WindowTrigger.cs" />
     <Compile Include="ZombieBodyPart.cs" />
     <Compile Include="ZombieController.cs" />
     <Compile Include="ZombiePool.cs" />
+    <Compile Include="ZombieSpawnPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nuget.config" />
