@@ -69,6 +69,7 @@
     <Compile Include="Gamemode\GameStart.cs" />
     <Compile Include="Gamemode\HighscoreShower.cs" />
     <Compile Include="Gamemode\LeverWrapper.cs" />
+    <Compile Include="Gamemode\ZombiesGamemodeLoader.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\PowerUpManager.cs" />
     <Compile Include="Managers\RoundManager.cs" />
