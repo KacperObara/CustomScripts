@@ -5,9 +5,9 @@ using Random = UnityEngine.Random;
 
 namespace CustomScripts
 {
-    public class PowerUpMgr : MonoBehaviour
+    public class PowerUpManager : MonoBehaviour
     {
-        public static PowerUpMgr Instance { get; private set; }
+        public static PowerUpManager Instance { get; private set; }
 
         private void Awake()
         {
