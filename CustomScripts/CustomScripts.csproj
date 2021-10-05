@@ -61,11 +61,11 @@
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\MonoBehaviourSingleton.cs" />
-    <Compile Include="Gamemode\Debug\CustomDebug.cs" />
-    <Compile Include="Gamemode\Debug\DebugDamagableText.cs" />
-    <Compile Include="Gamemode\Debug\TestAmmo.cs" />
-    <Compile Include="Gamemode\Debug\TestPlayerCol.cs" />
-    <Compile Include="Gamemode\Debug\TestTrigger.cs" />
+    <Compile Include="Gamemode\GMDebug\CustomDebug.cs" />
+    <Compile Include="Gamemode\GMDebug\DebugDamagableText.cs" />
+    <Compile Include="Gamemode\GMDebug\TestAmmo.cs" />
+    <Compile Include="Gamemode\GMDebug\TestPlayerCol.cs" />
+    <Compile Include="Gamemode\GMDebug\TestTrigger.cs" />
     <Compile Include="Gamemode\EndPanel.cs" />
     <Compile Include="Gamemode\GameReferences.cs" />
     <Compile Include="Gamemode\GameSettings.cs" />
