@@ -6,6 +6,7 @@ namespace CustomScripts
 {
     public class AudioManager : MonoBehaviour
     {
+        // TODO In the future, need to decrease number of audiosources mostly playoneshot
         public static AudioManager Instance { get; private set; }
 
         private void Awake()
@@ -27,5 +28,13 @@ namespace CustomScripts
         public AudioSource RoundEndSound;
 
         public AudioSource EndMusic;
+
+        public AudioSource PlayerHitSound;
+
+        public AudioSource PowerUpX2Sound;
+        public AudioSource PowerUpDoublePointsEndSound;
+        public AudioSource PowerUpNukeSound;
+
+        public AudioSource BarricadeRepairSound;
     }
 }

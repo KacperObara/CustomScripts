@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace CustomScripts
 {
@@ -17,6 +18,7 @@ namespace CustomScripts
 
         public static Action OnRoundChanged;
         public static Action OnZombiesLeftChanged;
+        public static Action<GameObject> OnZombieKilled;
 
         public GameObject StartButton;
 
@@ -24,15 +26,20 @@ namespace CustomScripts
         [HideInInspector] public int ZombiesLeft;
 
         public int ZombieStartHp = 2;
+
         [Tooltip("How much zombie HP is added per round")]
         public int ZombieRoundHpIncrement = 1;
+
         public int ZombieStartCount = 2;
+
         [Tooltip("How much zombies are added per round")]
-        public int ZombieRoundCountIncrement = 1;
+        private int ZombieRoundCountIncrement = GameSettings.MoreEnemies ? 1 : 2;
+
         public int ZombieFastWalkRound = 4;
         public int ZombieRunRound = 6;
 
-        public int ZombieHP => ZombieStartHp + (RoundNumber * ZombieRoundHpIncrement);
+        public int ZombieHP => ZombieStartHp + (RoundNumber * ZombieRoundHpIncrement); // 3 4 5 6 7...
+        public int WeakerZombieHP => ZombieStartHp + (RoundNumber / 2); // 2 3 3 4 4 5 5...
         public bool IsFastWalking => RoundNumber >= ZombieFastWalkRound;
         public bool IsRunning => RoundNumber >= ZombieRunRound;
 
@@ -52,6 +59,10 @@ namespace CustomScripts
 
             RoundNumber = 0;
 
+            if (Random.Range(0, 20) == 0)
+                Debug.Log("Are you sure your front doors are locked?");
+
+
             AdvanceRound();
         }
 
@@ -61,6 +72,11 @@ namespace CustomScripts
                 return;
 
             RoundNumber++;
+
+            if (GameSettings.MoreEnemies) // TODO why GameSettings.MoreEnemies ? 2 : 1; doesn't work? bool only or what? xd
+                ZombieRoundCountIncrement = 2;
+            else
+                ZombieRoundCountIncrement = 1;
 
             int zombiesToSpawn = ZombieStartCount + (RoundNumber * ZombieRoundCountIncrement);
             if (zombiesToSpawn > zombieLimit)
@@ -75,11 +91,8 @@ namespace CustomScripts
 
             AudioManager.Instance.RoundStartSound.PlayDelayed(1);
 
-            if (OnZombiesLeftChanged != null)
-                OnZombiesLeftChanged.Invoke();
-
-            if (OnRoundChanged != null)
-                OnRoundChanged.Invoke();
+            OnZombiesLeftChanged?.Invoke();
+            OnRoundChanged?.Invoke();
         }
 
         public void EndRound()

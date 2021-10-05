@@ -10,7 +10,7 @@ namespace CustomScripts
     /// </summary>
     public class Blockade : MonoBehaviour
     {
-        public List<Transform> UnlockableZombieSpawnPoints;
+        public List<ZombieSpawnPoint> UnlockableZombieSpawnPoints;
 
         private bool alreadyUsed = false;
         public int Cost;
@@ -25,10 +25,10 @@ namespace CustomScripts
 
             alreadyUsed = true;
 
-            //LINQ! - Just a less verbose way of writing things
-            foreach (Transform zombieSP in UnlockableZombieSpawnPoints.Where(zombieSP => !zombieSP.gameObject.activeInHierarchy))
+            //LINQ! - Just a less verbose way of writing things <3
+            foreach (ZombieSpawnPoint zombieSP in UnlockableZombieSpawnPoints.Where(zombieSP => !zombieSP.Unlocked))
             {
-                zombieSP.gameObject.SetActive(true);
+                zombieSP.Unlocked = true;
                 GameManager.Instance.ZombieSpawnPoints.Add(zombieSP);
             }
 

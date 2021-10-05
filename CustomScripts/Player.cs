@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using FistVR;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,20 +16,9 @@ namespace CustomScripts
                 Instance = this;
         }
 
-        public bool IsInvincible = false;
+        public PowerUpView PowerUpView;
 
         public float DamageModifier = 1f;
-
-        public void OnPlayerHit()
-        {
-            StartCoroutine(InvincibilityDuration());
-        }
-
-        private IEnumerator InvincibilityDuration()
-        {
-            IsInvincible = true;
-            yield return new WaitForSeconds(2f);
-            IsInvincible = false;
-        }
+        public float MoneyModifier = 1f;
     }
 }
