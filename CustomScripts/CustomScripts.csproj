@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CustomTrigger.cs" />
+    <Compile Include="Common\Delegates.cs" />
+    <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\MonoBehaviourSingleton.cs" />
     <Compile Include="Gamemode\Debug\CustomDebug.cs" />
@@ -68,7 +70,6 @@
     <Compile Include="Gamemode\GameReferences.cs" />
     <Compile Include="Gamemode\GameSettings.cs" />
     <Compile Include="Gamemode\GameSettingsPanel.cs" />
-    <Compile Include="Gamemode\GameSettingsView.cs" />
     <Compile Include="Gamemode\GameStart.cs" />
     <Compile Include="Gamemode\HighscoreShower.cs" />
     <Compile Include="Gamemode\LeverWrapper.cs" />

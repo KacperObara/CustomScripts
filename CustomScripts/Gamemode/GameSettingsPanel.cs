@@ -13,5 +13,23 @@ namespace CustomScripts
         public FVRPointableButton MoreEnemies;
         public FVRPointableButton FasterEnemies;
         public FVRPointableButton WeakerEnemies;
+
+        private void Awake()
+        {
+            GameSettings.OnSettingsChanged += UpdateText;
+        }
+
+        private void OnDestroy()
+        {
+            GameSettings.OnSettingsChanged -= UpdateText;
+        }
+
+        private void UpdateText()
+        {
+            MoreEnemies.Text.text   = GameSettings.MoreEnemies ? "Enabled" : "Disabled";
+            FasterEnemies.Text.text = GameSettings.FasterEnemies ? "Enabled" : "Disabled";
+            WeakerEnemies.Text.text = GameSettings.WeakerEnemies ? "Enabled" : "Disabled";
+            LimitedAmmo.Text.text   = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
+        }
     }
 }
