@@ -14,6 +14,8 @@ namespace CustomScripts
         public FVRPointableButton FasterEnemies;
         public FVRPointableButton WeakerEnemies;
 
+        public FVRPointableButton StartGame;
+        
         private void Awake()
         {
             GameSettings.OnSettingsChanged += UpdateText;

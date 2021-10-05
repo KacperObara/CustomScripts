@@ -46,5 +46,10 @@ namespace CustomScripts
             GM.CurrentSceneSettings.IsSpawnLockingEnabled = LimitedAmmo;
             OnSettingsChanged?.Invoke();
         }
+
+        public void StartGame()
+        {
+            GameManager.Instance.StartGame();
+        }
     }
 }

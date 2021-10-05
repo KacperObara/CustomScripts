@@ -93,7 +93,8 @@ namespace CustomScripts
 
         public void StartGame()
         {
-
+            GM.CurrentMovementManager.TeleportToPoint(GameStart.Instance.transform.position, false);
+            
             if (GameStarted)
                 return;
             GameStarted = true;
