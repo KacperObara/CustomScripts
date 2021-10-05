@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using CustomScripts.Player;
 using FistVR;
 using UnityEngine;
 using UnityEngine.AI;
-using WurstMod.MappingComponents.Generic;
 
 namespace CustomScripts
 {
@@ -14,6 +13,7 @@ namespace CustomScripts
         Dead
     }
 
+    // TODO string based property lookup is inefficient
     public class ZombieController : MonoBehaviour
     {
         public int PointsOnHit = 10;
@@ -97,7 +97,8 @@ namespace CustomScripts
             if (Health <= 0)
                 return;
 
-            float newDamage = Damage * Player.Instance.DamageModifier;
+            float newDamage = Damage * PlayerData.Instance.DamageModifier;
+
             Damage = (int) newDamage;
 
             AudioManager.Instance.ZombieHitSound.Play();

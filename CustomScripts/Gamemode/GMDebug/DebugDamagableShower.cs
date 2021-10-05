@@ -2,7 +2,7 @@ using FistVR;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CustomScripts
+namespace CustomScripts.Gamemode.GMDebug
 {
     /// <summary>
     /// Script for checking the damage of weapons/bullets

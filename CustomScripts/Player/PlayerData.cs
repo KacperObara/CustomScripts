@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace CustomScripts
+namespace CustomScripts.Player
 {
-    public class Player : MonoBehaviour
+    public class PlayerData : MonoBehaviour
     {
-        public static Player Instance { get; private set; }
+        public static PlayerData Instance { get; private set; }
 
         private void Awake()
         {

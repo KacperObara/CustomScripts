@@ -1,3 +1,4 @@
+using CustomScripts.Player;
 using FistVR;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace CustomScripts
 
         public void ApplyModifier()
         {
-            Player.Instance.DamageModifier = DamageMultiplier;
+            PlayerData.Instance.DamageModifier = DamageMultiplier;
             AudioManager.Instance.DrinkSound.Play();
             Destroy(ParentObject);
         }

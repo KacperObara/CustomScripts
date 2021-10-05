@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CustomScripts.Player;
 using FistVR;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace CustomScripts
@@ -30,7 +30,10 @@ namespace CustomScripts
 
         public void AddPoints(int amount)
         {
-            float newAmount = amount * Player.Instance.MoneyModifier;
+            float newAmount = amount * PlayerData.Instance.MoneyModifier;
+
+            PlayerData.Instance.MoneyModifier.ToString();
+
             amount = (int) newAmount;
 
             Points += amount;

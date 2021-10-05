@@ -84,7 +84,7 @@
     <Compile Include="Objects\StatPanel.cs" />
     <Compile Include="Objects\Window\Window.cs" />
     <Compile Include="Objects\Window\WindowTrigger.cs" />
-    <Compile Include="Player\Player.cs" />
+    <Compile Include="Player\PlayerData.cs" />
     <Compile Include="Player\PlayerCollider.cs" />
     <Compile Include="Powerups\Perks\BiggerZombieHitBoxPerkBottle.cs" />
     <Compile Include="Powerups\Perks\ExtraDamagePerkBottle.cs" />

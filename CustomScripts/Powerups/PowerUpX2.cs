@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CustomScripts.Player;
 using UnityEngine;
 
 namespace CustomScripts
@@ -36,8 +37,8 @@ namespace CustomScripts
 
         public void ApplyModifier()
         {
-            Player.Instance.MoneyModifier = 2f;
-            Player.Instance.PowerUpIndicator.Activate(30f);
+            PlayerData.Instance.MoneyModifier = 2f;
+            PlayerData.Instance.PowerUpIndicator.Activate(30f);
             StartCoroutine(DisablePowerUpDelay(30f));
 
             AudioManager.Instance.PowerUpX2Sound.Play();
@@ -49,7 +50,7 @@ namespace CustomScripts
         {
             yield return new WaitForSeconds(time);
             AudioManager.Instance.PowerUpDoublePointsEndSound.Play();
-            Player.Instance.MoneyModifier = 1f;
+            PlayerData.Instance.MoneyModifier = 1f;
         }
 
         private void Despawn()
