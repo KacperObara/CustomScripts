@@ -10,20 +10,18 @@ namespace CustomScripts
     public class MysteryBoxMover : MonoBehaviour
     {
         public List<Transform> SpawnPoints;
-        public Transform CurrentPos;
 
-        private Animator animator;
+        [Range(0, 100)] public float TeleportChance = 20f;
+        public int SafeRollsProvided = 3;
 
         public AudioSource ByeByeSound;
-        public int SafeRollsProvided = 3;
-        [Range(0, 100)] public float TeleportChance = 20f;
 
+        [HideInInspector] public Transform CurrentPos;
         [HideInInspector] public int CurrentRoll = 0;
 
         private MysteryBox mysteryBox;
-
+        private Animator animator;
         private Transform parent;
-        private Vector3 startingPos;
 
         private void Awake()
         {
@@ -34,7 +32,6 @@ namespace CustomScripts
 
         private void Start()
         {
-            startingPos = transform.localPosition;
             Teleport(true);
         }
 

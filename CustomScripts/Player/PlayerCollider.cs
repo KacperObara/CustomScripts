@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class TestPlayerCol : MonoBehaviour
+    public class PlayerCollider : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)
         {
@@ -13,14 +13,14 @@ namespace CustomScripts
                 other.GetComponent<ZombieController>().OnPlayerTouch();
             }
 
-            if (other.GetComponent<PowerUpNuke>())
+            if (other.GetComponent<IPowerUp>() != null)
             {
-                other.GetComponent<PowerUpNuke>().ApplyModifier();
+                other.GetComponent<IPowerUp>().ApplyModifier();
             }
 
-            if (other.GetComponent<PowerUpX2>())
+            if (other.GetComponent<IPerkBottle>() != null)
             {
-                other.GetComponent<PowerUpX2>().ApplyModifier();
+                other.GetComponent<IPerkBottle>().ApplyModifier();
             }
         }
 

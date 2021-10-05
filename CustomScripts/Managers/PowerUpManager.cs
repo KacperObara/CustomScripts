@@ -28,7 +28,7 @@ namespace CustomScripts
         public float ChanceForX2PowerUp = 4f;
         public int LastPowerUpRound = 0;
 
-        public void RollForPowerUp(GameObject spawnPos)
+        public void RollForPowerUp(GameObject spawnPos) // TODO Temporary algorithm until more power ups are added
         {
             // no 2 power ups in one round until better balance
             if (LastPowerUpRound == RoundManager.Instance.RoundNumber)
@@ -49,24 +49,6 @@ namespace CustomScripts
                 SpawnPowerUp(PowerUpDoublePoints, spawnPos.transform.position);
                 return;
             }
-
-
-            // if (!DoublePointsUsed)
-            // {
-            //     DoublePointsUsed = true;
-            //     SpawnPowerUp(PowerUpDoublePoints, spawnPos.transform.position);
-            // }
-            // else if (!NukeUsed)
-            // {
-            //     NukeUsed = true;
-            //     SpawnPowerUp(PowerUpNuke, spawnPos.transform.position);
-            // }
-            //
-            // if (DoublePointsUsed && NukeUsed)
-            // {
-            //     DoublePointsUsed = false;
-            //     NukeUsed = false;
-            // }
         }
 
         public void SpawnPowerUp(IPowerUp powerUp, Vector3 pos)

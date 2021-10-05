@@ -37,7 +37,7 @@ namespace CustomScripts
         public void ApplyModifier()
         {
             Player.Instance.MoneyModifier = 2f;
-            Player.Instance.PowerUpView.Activate(30f);
+            Player.Instance.PowerUpIndicator.Activate(30f);
             StartCoroutine(DisablePowerUpDelay(30f));
 
             AudioManager.Instance.PowerUpX2Sound.Play();

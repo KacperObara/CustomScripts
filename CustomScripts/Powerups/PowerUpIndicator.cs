@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class PowerUpView : MonoBehaviour // TODO Change it to PowerUpIndicator
+    public class PowerUpIndicator : MonoBehaviour // TODO Change it to PowerUpIndicator
     {
         private ParticleSystem ps;
         public Vector3 Offset;
@@ -17,7 +17,6 @@ namespace CustomScripts
 
         private void Update()
         {
-            //if (GameReferences.Instance.Player != null)
             transform.position = GameReferences.Instance.Player.position + Offset;
         }
 

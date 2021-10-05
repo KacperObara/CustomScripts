@@ -7,15 +7,13 @@ namespace CustomScripts
     /// <summary>
     /// Script for checking the damage of weapons/bullets
     /// </summary>
-    public class DebugDamagableText : MonoBehaviour, IFVRDamageable
+    public class DebugDamagableShower : MonoBehaviour, IFVRDamageable
     {
-        public Text Text1;
-        public Text Text2;
+        public Text Text;
 
         public void Damage(Damage dam)
         {
-            Text1.text = "Kinetic: " + dam.Dam_TotalKinetic;
-            Text2.text = "Energy: " + dam.Dam_TotalEnergetic;
+            Text.text = "Kinetic: " + dam.Dam_TotalKinetic;
         }
     }
 }

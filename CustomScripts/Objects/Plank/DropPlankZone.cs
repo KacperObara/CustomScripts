@@ -12,7 +12,7 @@ namespace CustomScripts
             if (plank)
             {
                 plank.PhysicalObject.ForceBreakInteraction();
-                other.GetComponent<Plank>().ReturnToRest();
+                plank.ReturnToRest();
             }
         }
     }

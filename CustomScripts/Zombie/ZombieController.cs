@@ -19,59 +19,38 @@ namespace CustomScripts
         public int PointsOnHit = 10;
         public int PointsOnKill = 100;
 
-        //public ZombieSpawnPoint LastSpawnPoint;
-        public Window LastInteractedWindow;
+        public GameObject HeadObject;
 
-        // !!!animator speed = 0.1
-        // private float WalkSpeed = .8f;
-        // private float FastWalkSpeed = 1.25f;
-        // private float RunSpeed = 2.5f;
-
-        private float WalkAnimationSpeed = 2f;
-        private float FastWalkAnimationSpeed = .8f;
-        private float RunAnimationSpeed = .9f;
-
+        [HideInInspector] public Window LastInteractedWindow;
         [HideInInspector] public State State;
         [HideInInspector] public float Health;
 
-        public GameObject HeadObject;
+        private Animator animator;
+        private NavMeshAgent agent;
+        private RandomZombieSound soundPlayer;
 
         private float agentUpdateTimer;
         private const float agentUpdateInterval = 1f;
-
-        private Animator animator;
-        private NavMeshAgent agent;
-
-        private RandomZombieSound soundPlayer;
-        //private Transform player;
-
-        //private Transform Target;
 
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             soundPlayer = GetComponent<RandomZombieSound>();
-
-            //player = GameReferences.Instance.Player;
         }
 
         public void Initialize()
         {
-            //Target = LastSpawnPoint.Window.ZombieWaypoint;
-
             agentUpdateTimer = agentUpdateInterval;
             animator.SetBool("Dead", false);
             animator.SetBool("Walk", true);
 
             agent.speed = 0.1f;
-            //agent.speed = WalkSpeed;
             if (GameSettings.FasterEnemies)
                 animator.SetFloat("WalkSpeed", 1.2f);
 
             if (RoundManager.Instance.IsFastWalking)
             {
-                //agent.speed = FastWalkSpeed;
                 animator.SetBool("FastWalk", true);
                 animator.SetBool("Walk", false);
                 if (GameSettings.FasterEnemies)
@@ -80,7 +59,6 @@ namespace CustomScripts
 
             if (RoundManager.Instance.IsRunning)
             {
-                //agent.speed = RunSpeed;
                 animator.SetBool("Run", true);
                 animator.SetBool("FastWalk", false);
                 if (GameSettings.FasterEnemies)
@@ -111,7 +89,6 @@ namespace CustomScripts
             {
                 agentUpdateTimer -= agentUpdateInterval;
                 agent.SetDestination(GameReferences.Instance.Player.position);
-                //agent.SetDestination(GameReferences.Instance.Player.position);
             }
         }
 
@@ -144,9 +121,6 @@ namespace CustomScripts
 
         public void OnHitPlayer()
         {
-            // if (player == null)
-            //     return;
-
             if (State == State.Dead)
                 return;
 
@@ -178,7 +152,6 @@ namespace CustomScripts
         {
             agent.speed = 0;
             animator.applyRootMotion = false;
-            //.SetTrigger("PunchTrigger");
             animator.SetBool("PunchBool", true);
             State = State.AttackWindow;
         }
@@ -186,7 +159,6 @@ namespace CustomScripts
         public void OnHitWindow()
         {
             LastInteractedWindow.OnPlankRipped();
-            //LastSpawnPoint.Window.OnPlankRipped();
         }
 
         public void OnHitWindowEnd()
@@ -197,10 +169,6 @@ namespace CustomScripts
                 State = State.Chase;
                 agent.speed = 0.1f;
                 animator.applyRootMotion = true;
-            }
-            else
-            {
-                //animator.SetTrigger("PunchTrigger");
             }
         }
 
@@ -224,10 +192,6 @@ namespace CustomScripts
             {
                 OnHitPlayer();
             }
-        }
-
-        private void OnDestroy()
-        {
         }
     }
 }

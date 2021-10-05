@@ -61,11 +61,7 @@
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\MonoBehaviourSingleton.cs" />
-    <Compile Include="Gamemode\GMDebug\CustomDebug.cs" />
-    <Compile Include="Gamemode\GMDebug\DebugDamagableText.cs" />
-    <Compile Include="Gamemode\GMDebug\TestAmmo.cs" />
-    <Compile Include="Gamemode\GMDebug\TestPlayerCol.cs" />
-    <Compile Include="Gamemode\GMDebug\TestTrigger.cs" />
+    <Compile Include="Gamemode\GMDebug\DebugDamagableShower.cs" />
     <Compile Include="Gamemode\EndPanel.cs" />
     <Compile Include="Gamemode\GameReferences.cs" />
     <Compile Include="Gamemode\GameSettings.cs" />
@@ -73,7 +69,6 @@
     <Compile Include="Gamemode\GameStart.cs" />
     <Compile Include="Gamemode\HighscoreShower.cs" />
     <Compile Include="Gamemode\LeverWrapper.cs" />
-    <Compile Include="Gamemode\LeverWrapperMysteryBox.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\PowerUpManager.cs" />
     <Compile Include="Managers\RoundManager.cs" />
@@ -89,14 +84,14 @@
     <Compile Include="Objects\StatPanel.cs" />
     <Compile Include="Objects\Window\Window.cs" />
     <Compile Include="Objects\Window\WindowTrigger.cs" />
-    <Compile Include="Player\CustomPlayerTrigger.cs" />
     <Compile Include="Player\Player.cs" />
+    <Compile Include="Player\PlayerCollider.cs" />
     <Compile Include="Powerups\Perks\BiggerZombieHitBoxPerkBottle.cs" />
     <Compile Include="Powerups\Perks\ExtraDamagePerkBottle.cs" />
     <Compile Include="Powerups\Perks\ExtraHealthPerkBottle.cs" />
     <Compile Include="Powerups\Perks\PerkShop.cs" />
     <Compile Include="Powerups\PowerUpNuke.cs" />
-    <Compile Include="Powerups\PowerUpView.cs" />
+    <Compile Include="Powerups\PowerUpIndicator.cs" />
     <Compile Include="Powerups\PowerUpX2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zombie\RandomZombieSound.cs" />

@@ -33,7 +33,7 @@ namespace CustomScripts
         public int ZombieStartCount = 2;
 
         [Tooltip("How much zombies are added per round")]
-        private int ZombieRoundCountIncrement = GameSettings.MoreEnemies ? 1 : 2;
+        private int ZombieRoundCountIncrement; // Make public and expand
 
         public int ZombieFastWalkRound = 4;
         public int ZombieRunRound = 6;
@@ -73,7 +73,7 @@ namespace CustomScripts
 
             RoundNumber++;
 
-            if (GameSettings.MoreEnemies) // TODO why GameSettings.MoreEnemies ? 2 : 1; doesn't work? bool only or what? xd
+            if (GameSettings.MoreEnemies)
                 ZombieRoundCountIncrement = 2;
             else
                 ZombieRoundCountIncrement = 1;

@@ -10,7 +10,6 @@ namespace CustomScripts
 {
     public class MysteryBox : MonoBehaviour
     {
-        [HideInInspector] public bool InUse = false;
         public int Cost = 950;
 
         public List<string> WeaponsObjectID;
@@ -20,6 +19,8 @@ namespace CustomScripts
         public ItemSpawner AmmoSpawner;
 
         public AudioSource SpawnAudio;
+
+        [HideInInspector] public bool InUse = false;
 
         private MysteryBoxMover mysteryBoxMover;
 

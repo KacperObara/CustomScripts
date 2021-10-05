@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using FistVR;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CustomScripts
 {
@@ -16,9 +12,7 @@ namespace CustomScripts
                 Instance = this;
         }
 
-        
-        
-        public PowerUpView PowerUpView;
+        public PowerUpIndicator PowerUpIndicator;
 
         public float DamageModifier = 1f;
         public float MoneyModifier = 1f;
