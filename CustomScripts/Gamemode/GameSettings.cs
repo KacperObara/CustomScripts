@@ -1,4 +1,5 @@
 using System;
+using FistVR;
 using UnityEngine;
 using WurstMod.Runtime;
 
@@ -42,7 +43,7 @@ namespace CustomScripts
         public void ToggleLimitedAmmo() // Not working
         {
             LimitedAmmo = !LimitedAmmo;
-            ObjectReferences.FVRSceneSettings.IsSpawnLockingEnabled = LimitedAmmo;
+            GM.CurrentSceneSettings.IsSpawnLockingEnabled = LimitedAmmo;
             OnSettingsChanged?.Invoke();
         }
     }

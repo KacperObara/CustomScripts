@@ -65,6 +65,7 @@
     <Compile Include="Gamemode\GameReferences.cs" />
     <Compile Include="Gamemode\GameSettings.cs" />
     <Compile Include="Gamemode\GameSettingsView.cs" />
+    <Compile Include="Gamemode\GameStart.cs" />
     <Compile Include="Gamemode\HighscoreShower.cs" />
     <Compile Include="Gamemode\LeverWrapper.cs" />
     <Compile Include="Gamemode\LeverWrapperMysteryBox.cs" />
