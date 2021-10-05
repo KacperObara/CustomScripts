@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FistVR;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -92,6 +93,8 @@ namespace CustomScripts
 
         public void StartGame()
         {
+            GM.CurrentMovementManager.TeleportToPoint(GameStart.Instance.transform.position, false);
+            
             if (GameStarted)
                 return;
             GameStarted = true;

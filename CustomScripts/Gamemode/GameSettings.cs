@@ -1,4 +1,5 @@
 using System;
+using FistVR;
 using UnityEngine;
 using WurstMod.Runtime;
 
@@ -6,7 +7,7 @@ namespace CustomScripts
 {
     public class GameSettings : MonoBehaviourSingleton<GameSettings>
     {
-        public static Action OnSettingsChanged;
+        public static event Delegates.VoidDelegate OnSettingsChanged;
 
         public static bool MoreEnemies;
         public static bool FasterEnemies;
@@ -15,35 +16,40 @@ namespace CustomScripts
 
         private void Start()
         {
-            MoreEnemies = false;
-            FasterEnemies = false;
-            WeakerEnemies = false;
-            LimitedAmmo = false;
+            MoreEnemies     = false;
+            FasterEnemies   = false;
+            WeakerEnemies   = false;
+            LimitedAmmo     = false;
         }
 
         public void ToggleMoreEnemies()
         {
-            MoreEnemies = !MoreEnemies;
+            MoreEnemies.Switch();
             OnSettingsChanged?.Invoke();
         }
 
         public void ToggleFasterEnemies()
         {
-            FasterEnemies = !FasterEnemies;
+            FasterEnemies.Switch();
             OnSettingsChanged?.Invoke();
         }
 
         public void ToggleWeakerEnemies()
         {
-            WeakerEnemies = !WeakerEnemies;
+            WeakerEnemies.Switch();
             OnSettingsChanged?.Invoke();
         }
 
         public void ToggleLimitedAmmo() // Not working
         {
-            LimitedAmmo = !LimitedAmmo;
-            ObjectReferences.FVRSceneSettings.IsSpawnLockingEnabled = LimitedAmmo;
+            LimitedAmmo.Switch();
+            GM.CurrentSceneSettings.IsSpawnLockingEnabled = LimitedAmmo;
             OnSettingsChanged?.Invoke();
+        }
+
+        public void StartGame()
+        {
+            GameManager.Instance.StartGame();
         }
     }
 }

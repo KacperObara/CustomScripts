@@ -62,10 +62,10 @@ namespace CustomScripts
             switch (triggerShape)
             {
                 case TriggerShape.Cube:
-                    Extensions.GenericGizmoCubeOutline(Color.green, Vector3.zero, cubeShape, transform);
+                    WurstMod.Shared.Extensions.GenericGizmoCubeOutline(Color.green, Vector3.zero, cubeShape, transform);
                     break;
                 case TriggerShape.Sphere:
-                    Extensions.GenericGizmoSphereOutline(Color.green, Vector3.zero, sphereRadius, transform);
+                    WurstMod.Shared.Extensions.GenericGizmoSphereOutline(Color.green, Vector3.zero, sphereRadius, transform);
                     break;
             }
         }
