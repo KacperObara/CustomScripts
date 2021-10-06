@@ -13,6 +13,10 @@ namespace CustomScripts
     /// I don't know how to use observer pattern for this case, since there are no events to hook to
     /// (TrapLever has MessageTargets but how to use it?)
     /// (FVRLever might be a better lever script, but it throws FVRUpdate null errors)
+    ///
+    /// Edit:
+    /// https://github.com/WFIOST/HADES.H3VR/blob/5ffff8153cb5b9f891d474c8863177b592c8857b/HADES.Core/src/Enhancements/EnhancedMovement.cs#L71
+    /// turning methods into events
     /// </summary>
     public class LeverWrapper : MonoBehaviour
     {

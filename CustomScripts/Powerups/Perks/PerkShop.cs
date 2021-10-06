@@ -8,8 +8,6 @@ namespace CustomScripts
         public int Cost;
 
         public GameObject Bottle;
-        public GameObject BuyTrigger;
-
         public Transform SpawnPoint;
 
         private bool alreadyUsed = false;
@@ -26,7 +24,6 @@ namespace CustomScripts
                 Bottle.transform.position = SpawnPoint.position;
 
                 AudioManager.Instance.BuySound.Play();
-                BuyTrigger.SetActive(false);
             }
         }
     }

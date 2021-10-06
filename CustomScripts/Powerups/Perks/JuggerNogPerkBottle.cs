@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class ExtraHealthPerkBottle: MonoBehaviour, IPerkBottle
+    public class JuggerNogPerkBottle: MonoBehaviour, IPerkBottle
     {
         public float NewHealth = 10000;
-        public GameObject ParentObject;
 
         public void ApplyModifier()
         {
@@ -14,7 +13,7 @@ namespace CustomScripts
             GM.CurrentPlayerBody.ResetHealth();
 
             AudioManager.Instance.DrinkSound.Play();
-            Destroy(ParentObject);
+            Destroy(gameObject);
         }
     }
 }

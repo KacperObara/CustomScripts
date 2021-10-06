@@ -18,11 +18,8 @@ namespace CustomScripts
             RoundManager.OnZombieKilled += RollForPowerUp;
         }
 
-        public PowerUpX2 PowerUpDoublePoints;
-        public bool DoublePointsUsed = false;
-
+        public PowerUpDoublePoints PowerUpDoublePoints;
         public PowerUpNuke PowerUpNuke;
-        public bool NukeUsed = false;
 
         public float ChanceForNukePowerUp = 1f;
         public float ChanceForX2PowerUp = 4f;

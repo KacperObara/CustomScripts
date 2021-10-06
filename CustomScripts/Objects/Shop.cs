@@ -10,7 +10,6 @@ namespace CustomScripts
     {
         public int Cost;
         public Text CostText;
-        public GameObject BuyTrigger;
 
         public List<ItemSpawner> ItemSpawners;
 
@@ -36,7 +35,6 @@ namespace CustomScripts
                 }
 
                 AudioManager.Instance.BuySound.Play();
-                BuyTrigger.SetActive(false);
             }
         }
     }

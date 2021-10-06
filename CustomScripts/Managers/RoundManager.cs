@@ -6,16 +6,8 @@ using Random = UnityEngine.Random;
 
 namespace CustomScripts
 {
-    public class RoundManager : MonoBehaviour
+    public class RoundManager : MonoBehaviourSingleton<RoundManager>
     {
-        public static RoundManager Instance { get; private set; }
-
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-        }
-
         public static Action OnRoundChanged;
         public static Action OnZombiesLeftChanged;
         public static Action<GameObject> OnZombieKilled;

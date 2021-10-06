@@ -16,8 +16,6 @@ namespace CustomScripts
     {
         public List<WindowPlank> PlankSlots;
 
-        public Transform ZombieWaypoint;
-
         public int PlanksRemain { get; set; } // Overcomplicated a little
         public bool IsOpen => PlanksRemain == 0;
 
@@ -57,8 +55,7 @@ namespace CustomScripts
             plank.PhysicalObject.IsPickUpLocked = true;
 
             plank.OnRepairDrop(windowPlank.transform);
-            //plank.transform.position = windowPlank.transform.position;
-            //plank.transform.rotation = windowPlank.transform.rotation;
+
             PlanksRemain++;
         }
 

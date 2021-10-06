@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class PowerUpX2 : MonoBehaviour, IPowerUp // TODO Change it to PowerUpDoublePoints
+    public class PowerUpDoublePoints : MonoBehaviour, IPowerUp // TODO Change it to PowerUpDoublePoints
     {
         public MeshRenderer Renderer;
         private Animator animator;

@@ -2,10 +2,8 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class BiggerZombieHitBoxPerkBottle : MonoBehaviour, IPerkBottle
+    public class DeadShotPerkBottle : MonoBehaviour, IPerkBottle
     {
-        public GameObject ParentObject;
-
         public void ApplyModifier()
         {
             foreach (ZombieController zombie in GameManager.Instance.AllZombies)
@@ -14,7 +12,7 @@ namespace CustomScripts
             }
 
             AudioManager.Instance.DrinkSound.Play();
-            Destroy(ParentObject);
+            Destroy(gameObject);
         }
     }
 }

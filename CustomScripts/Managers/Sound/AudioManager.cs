@@ -4,16 +4,9 @@ using UnityEngine.Serialization;
 
 namespace CustomScripts
 {
-    public class AudioManager : MonoBehaviour
+    public class AudioManager : MonoBehaviourSingleton<AudioManager>
     {
         // TODO In the future, need to decrease number of audiosources mostly playoneshot
-        public static AudioManager Instance { get; private set; }
-
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-        }
 
         public List<AudioClip> FarZombieSounds;
         public List<AudioClip> CloseZombieSounds;
