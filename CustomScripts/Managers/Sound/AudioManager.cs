@@ -29,5 +29,7 @@ namespace CustomScripts
         public AudioSource PowerUpNukeSound;
 
         public AudioSource BarricadeRepairSound;
+
+        public AudioSource PackAPunchUpgradeSound;
     }
 }

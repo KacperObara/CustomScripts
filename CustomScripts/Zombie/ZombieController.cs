@@ -177,19 +177,26 @@ namespace CustomScripts
 
         public void OnPlayerTouch()
         {
+            if (playertouches != 0)
+                return;
+
             playertouches++;
             OnHitPlayer();
         }
 
         public void OnPlayerStopTouch()
         {
+            if (playertouches == 0)
+                return;
+
             playertouches--;
         }
 
         private IEnumerator CheckStillColliding()
         {
             yield return new WaitForSeconds(2f);
-            if (playertouches != 0)
+
+            if (playertouches != 0 && !GameManager.Instance.GameEnded)
             {
                 OnHitPlayer();
             }

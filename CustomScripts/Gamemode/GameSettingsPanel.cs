@@ -9,13 +9,18 @@ namespace CustomScripts
     public class GameSettingsPanel : MonoBehaviour
     {
         //TODO: Set the OnClick actions
-        public FVRPointableButton LimitedAmmo;
-        public FVRPointableButton MoreEnemies;
-        public FVRPointableButton FasterEnemies;
-        public FVRPointableButton WeakerEnemies;
+        // public FVRPointableButton LimitedAmmo;
+        // public FVRPointableButton MoreEnemies;
+        // public FVRPointableButton FasterEnemies;
+        // public FVRPointableButton WeakerEnemies;
+        //
+        // public FVRPointableButton StartGame;
 
-        public FVRPointableButton StartGame;
-        
+        //public Text LimitedAmmo;
+        public Text MoreEnemies;
+        public Text FasterEnemies;
+        public Text WeakerEnemies;
+
         private void Awake()
         {
             GameSettings.OnSettingsChanged += UpdateText;
@@ -28,10 +33,15 @@ namespace CustomScripts
 
         private void UpdateText()
         {
-            MoreEnemies.Text.text   = GameSettings.MoreEnemies ? "Enabled" : "Disabled";
-            FasterEnemies.Text.text = GameSettings.FasterEnemies ? "Enabled" : "Disabled";
-            WeakerEnemies.Text.text = GameSettings.WeakerEnemies ? "Enabled" : "Disabled";
-            LimitedAmmo.Text.text   = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
+            // MoreEnemies.Text.text   = GameSettings.MoreEnemies ? "Enabled" : "Disabled";
+            // FasterEnemies.Text.text = GameSettings.FasterEnemies ? "Enabled" : "Disabled";
+            // WeakerEnemies.Text.text = GameSettings.WeakerEnemies ? "Enabled" : "Disabled";
+            // LimitedAmmo.Text.text   = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
+
+            MoreEnemies.text   = GameSettings.MoreEnemies ? "Enabled" : "Disabled";
+            FasterEnemies.text = GameSettings.FasterEnemies ? "Enabled" : "Disabled";
+            WeakerEnemies.text = GameSettings.WeakerEnemies ? "Enabled" : "Disabled";
+            //LimitedAmmo.text   = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
         }
     }
 }

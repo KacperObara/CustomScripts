@@ -82,10 +82,13 @@
     <Compile Include="Objects\Plank\Plank.cs" />
     <Compile Include="Objects\Shop.cs" />
     <Compile Include="Objects\StatPanel.cs" />
+    <Compile Include="Objects\Weapons\WeaponData.cs" />
     <Compile Include="Objects\Window\Window.cs" />
     <Compile Include="Objects\Window\WindowTrigger.cs" />
+    <Compile Include="Player\PlayerColliderSmall.cs" />
     <Compile Include="Player\PlayerData.cs" />
     <Compile Include="Player\PlayerCollider.cs" />
+    <Compile Include="Powerups\PackAPunch.cs" />
     <Compile Include="Powerups\Perks\DeadShotPerkBottle.cs" />
     <Compile Include="Powerups\Perks\DoubleTapPerkBottle.cs" />
     <Compile Include="Powerups\Perks\JuggerNogPerkBottle.cs" />

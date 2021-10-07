@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class PowerUpIndicator : MonoBehaviour // TODO Change it to PowerUpIndicator
+    public class PowerUpIndicator : MonoBehaviour // TODO Parent it with the player collider object
     {
         private ParticleSystem ps;
         public Vector3 Offset;

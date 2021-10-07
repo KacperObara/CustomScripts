@@ -29,6 +29,10 @@ namespace CustomScripts
             else if (dam.Dam_TotalKinetic >= 2000)
                 damage = 3;
 
+            if (dam.Dam_TotalKinetic > 10000)
+                damage = 20;
+
+
             damage *= PartDamageMultiplier;
 
             Controller.OnHit(damage);

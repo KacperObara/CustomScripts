@@ -8,24 +8,34 @@ namespace CustomScripts
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Zombie"))
-            {
-                other.GetComponent<ZombieController>()?.OnPlayerTouch();
-            }
-            
-            if (other.CompareTag("PlayerInteractable"))
-            {
-                other.GetComponent<IModifier>()?.ApplyModifier();
-            }
+            other.GetComponent<ZombieController>()?.OnPlayerTouch();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Zombie"))
-            {
-                other.GetComponent<ZombieController>()?.OnPlayerStopTouch();
-            }
+            other.GetComponent<ZombieController>()?.OnPlayerStopTouch();
         }
+
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     if (other.CompareTag("Zombie"))
+        //     {
+        //         other.GetComponent<ZombieController>()?.OnPlayerTouch();
+        //     }
+        //
+        //     if (other.CompareTag("PlayerInteractable"))
+        //     {
+        //         other.GetComponent<IModifier>()?.ApplyModifier();
+        //     }
+        // }
+        //
+        // private void OnTriggerExit(Collider other)
+        // {
+        //     if (other.CompareTag("Zombie"))
+        //     {
+        //         other.GetComponent<ZombieController>()?.OnPlayerStopTouch();
+        //     }
+        // }
 
         private void Update()
         {
