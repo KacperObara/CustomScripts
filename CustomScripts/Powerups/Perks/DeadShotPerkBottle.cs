@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class DeadShotPerkBottle : MonoBehaviour, IPerkBottle
+    public class DeadShotPerkBottle : MonoBehaviour, IModifier
     {
         public void ApplyModifier()
         {
