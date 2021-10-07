@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class DoubleTapPerkBottle : MonoBehaviour, IPerkBottle
+    public class DoubleTapPerkBottle : MonoBehaviour, IModifier
     {
         public float DamageMultiplier = 1.5f;
         public void ApplyModifier()

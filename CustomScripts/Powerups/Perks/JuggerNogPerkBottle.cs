@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class JuggerNogPerkBottle: MonoBehaviour, IPerkBottle
+    public class JuggerNogPerkBottle: MonoBehaviour, IModifier
     {
         public float NewHealth = 10000;
 

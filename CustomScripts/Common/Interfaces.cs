@@ -6,10 +6,6 @@ namespace CustomScripts
     {
         void ApplyModifier();
     }
-    
-    public interface IPerkBottle : IModifier
-    {
-    }
 
     public interface IPowerUp : IModifier
     {
