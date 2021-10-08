@@ -89,8 +89,11 @@ namespace CustomScripts
 
         public void StartGame()
         {
+            ZombieController.playertouches = 0;
+            ZombieController.isBeingHit = false;
+
             GM.CurrentMovementManager.TeleportToPoint(GameStart.Instance.transform.position, false);
-            
+
             if (GameStarted)
                 return;
             GameStarted = true;

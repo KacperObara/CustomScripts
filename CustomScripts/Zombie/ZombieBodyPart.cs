@@ -10,15 +10,15 @@ namespace CustomScripts
 
         public void Damage(Damage dam)
         {
-            if (dam.Dam_TotalKinetic < 20)
-                return;
-
             // TODO may need to rethink explosives, for example grenades hit many times many body parts (I think)
             if (dam.Class == FistVR.Damage.DamageClass.Explosive)
             {
                 Controller.OnHit(1);
                 return;
             }
+
+            if (dam.Dam_TotalKinetic < 20)
+                return;
 
             int damage = 0;
 

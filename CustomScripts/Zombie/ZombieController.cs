@@ -125,6 +125,9 @@ namespace CustomScripts
             if (State == State.Dead)
                 return;
 
+            isBeingHit = true;
+            playertouches++;
+
             AudioManager.Instance.PlayerHitSound.Play();
             GM.CurrentPlayerBody.Health -= 2500;
             StartCoroutine(CheckStillColliding());
@@ -173,14 +176,17 @@ namespace CustomScripts
             }
         }
 
-        private int playertouches = 0;
+        public static int playertouches = 0;
+        public static bool isBeingHit = false;
 
         public void OnPlayerTouch()
         {
             if (playertouches != 0)
                 return;
 
-            playertouches++;
+            if (isBeingHit)
+                return;
+
             OnHitPlayer();
         }
 
@@ -194,12 +200,14 @@ namespace CustomScripts
 
         private IEnumerator CheckStillColliding()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.5f);
 
             if (playertouches != 0 && !GameManager.Instance.GameEnded)
             {
                 OnHitPlayer();
             }
+
+            isBeingHit = false;
         }
     }
 }
