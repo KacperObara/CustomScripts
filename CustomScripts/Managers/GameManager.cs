@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CustomScripts.Objects;
 using CustomScripts.Player;
 using FistVR;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace CustomScripts
         [Tooltip("Where the player should respawn on death")]
         public Transform RespawnWaypoint;
 
+        public StartSpawner StartSpawner;
         public EndPanel EndPanel;
 
         [HideInInspector] public List<ZombieController> ExistingZombies;
@@ -27,6 +29,8 @@ namespace CustomScripts
 
         [HideInInspector] public bool GameStarted = false;
         [HideInInspector] public bool GameEnded = false;
+
+        public WallShop FirstShop;
 
         public void AddPoints(int amount)
         {

@@ -12,14 +12,14 @@ namespace CustomScripts
         public static bool MoreEnemies;
         public static bool FasterEnemies;
         public static bool WeakerEnemies;
-        public static bool LimitedAmmo; // not implemented
+        public static bool LimitedAmmo;
 
         private void Start()
         {
-            MoreEnemies     = false;
-            FasterEnemies   = false;
-            WeakerEnemies   = false;
-            LimitedAmmo     = false;
+            MoreEnemies = false;
+            FasterEnemies = false;
+            WeakerEnemies = false;
+            LimitedAmmo = false;
         }
 
         public void ToggleMoreEnemies()
@@ -40,16 +40,11 @@ namespace CustomScripts
             OnSettingsChanged?.Invoke();
         }
 
-        public void ToggleLimitedAmmo() // Not working
+        public void ToggleLimitedAmmo()
         {
             LimitedAmmo.Switch();
-            GM.CurrentSceneSettings.IsSpawnLockingEnabled = LimitedAmmo;
+            GM.CurrentSceneSettings.IsSpawnLockingEnabled = !LimitedAmmo;
             OnSettingsChanged?.Invoke();
-        }
-
-        public void StartGame()
-        {
-            GameManager.Instance.StartGame();
         }
     }
 }

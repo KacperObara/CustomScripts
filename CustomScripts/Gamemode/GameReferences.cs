@@ -1,19 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 using WurstMod.MappingComponents.Generic;
 
 namespace CustomScripts
 {
-    public class GameReferences : MonoBehaviour
+    public class GameReferences : MonoBehaviourSingleton<GameReferences>
     {
-        public static GameReferences Instance { get; private set; }
-
-        private void Awake()
+        public override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
+            base.Awake();
 
             Player = DebugPlayer;
         }
+
+        public Material CanBuyMat;
+        public Material CannotBuyMat;
+
+        public Color CanBuyColor;
+        public Color CannotBuyColor;
+
+        public List<Window> Windows;
 
         [HideInInspector] public Transform Player;
         [SerializeField] private Transform DebugPlayer;

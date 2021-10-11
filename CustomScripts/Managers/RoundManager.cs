@@ -12,6 +12,8 @@ namespace CustomScripts
         public static Action OnZombiesLeftChanged;
         public static Action<GameObject> OnZombieKilled;
 
+        public static Action OnGameStarted;
+
         public GameObject StartButton;
 
         [HideInInspector] public int RoundNumber = 0;
@@ -49,6 +51,9 @@ namespace CustomScripts
             StartButton.SetActive(false);
             GameReferences.Instance.Respawn.position = gameManager.RespawnWaypoint.position;
 
+            GameManager.Instance.FirstShop.IsFree = true;
+            GameManager.Instance.FirstShop.TryBuying();
+
             RoundNumber = 0;
 
             if (Random.Range(0, 20) == 0)
@@ -56,6 +61,8 @@ namespace CustomScripts
 
 
             AdvanceRound();
+
+            OnGameStarted?.Invoke();
         }
 
         public void AdvanceRound()
@@ -101,7 +108,11 @@ namespace CustomScripts
 
         private IEnumerator DelayedAdvanceRound()
         {
-            yield return new WaitForSeconds(5f);
+            if (GameSettings.LimitedAmmo)
+                yield return new WaitForSeconds(17f);
+            else
+                yield return new WaitForSeconds(12f);
+
             AdvanceRound();
         }
     }

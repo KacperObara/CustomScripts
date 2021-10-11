@@ -27,6 +27,10 @@ namespace CustomScripts
         public AudioSource PowerUpX2Sound;
         public AudioSource PowerUpDoublePointsEndSound;
         public AudioSource PowerUpNukeSound;
+        public AudioSource PowerUpCarpenterSound;
+        public AudioSource PowerUpInstaKillSound;
+        public AudioSource PowerUpDeathMachineSound;
+        public AudioSource PowerUpMaxAmmoSound;
 
         public AudioSource BarricadeRepairSound;
 

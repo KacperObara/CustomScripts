@@ -97,6 +97,7 @@ namespace CustomScripts
             if (Health <= 0)
                 return;
 
+            Debug.Log("WTF " + Health);
             float newDamage = Damage * PlayerData.Instance.DamageModifier;
 
             Damage = (int) newDamage;
@@ -105,7 +106,7 @@ namespace CustomScripts
             GameManager.Instance.AddPoints(PointsOnHit);
             Health -= Damage;
 
-            if (Health <= 0)
+            if (Health <= 0 || PlayerData.Instance.InstaKill)
             {
                 State = State.Dead;
                 animator.SetBool("Dead", true);

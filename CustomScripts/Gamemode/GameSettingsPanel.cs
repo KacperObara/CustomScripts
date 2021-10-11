@@ -16,7 +16,7 @@ namespace CustomScripts
         //
         // public FVRPointableButton StartGame;
 
-        //public Text LimitedAmmo;
+        public Text LimitedAmmo;
         public Text MoreEnemies;
         public Text FasterEnemies;
         public Text WeakerEnemies;
@@ -41,7 +41,7 @@ namespace CustomScripts
             MoreEnemies.text   = GameSettings.MoreEnemies ? "Enabled" : "Disabled";
             FasterEnemies.text = GameSettings.FasterEnemies ? "Enabled" : "Disabled";
             WeakerEnemies.text = GameSettings.WeakerEnemies ? "Enabled" : "Disabled";
-            //LimitedAmmo.text   = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
+            LimitedAmmo.text   = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
         }
     }
 }

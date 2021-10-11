@@ -65,6 +65,15 @@ namespace CustomScripts.Powerups
                 Spawners[i].Spawn();
             }
 
+            if (GameSettings.LimitedAmmo)
+            {
+                for (int i = 0; i < weapon.LimitedAmmoMagazineCount - 1; i++)
+                {
+                    Spawners[1].ObjectId = weapon.UpgradedSpawners[1];
+                    Spawners[1].Spawn();
+                }
+            }
+
             InUse = false;
         }
     }

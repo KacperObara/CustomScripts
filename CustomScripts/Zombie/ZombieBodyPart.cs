@@ -10,6 +10,12 @@ namespace CustomScripts
 
         public void Damage(Damage dam)
         {
+            if (dam.Class == FistVR.Damage.DamageClass.Melee)
+            {
+                Controller.OnHit(1);
+                return;
+            }
+
             // TODO may need to rethink explosives, for example grenades hit many times many body parts (I think)
             if (dam.Class == FistVR.Damage.DamageClass.Explosive)
             {
@@ -34,6 +40,9 @@ namespace CustomScripts
 
 
             damage *= PartDamageMultiplier;
+
+            if (GameSettings.LimitedAmmo)
+                damage *= 2;
 
             Controller.OnHit(damage);
         }

@@ -60,6 +60,9 @@
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\MonoBehaviourSingleton.cs" />
+    <Compile Include="Common\StartSpawner.cs" />
+    <Compile Include="Gamemode\GMDebug\CustomDebug.cs" />
+    <Compile Include="Gamemode\GMDebug\CustomItemSpawner.cs" />
     <Compile Include="Gamemode\GMDebug\DebugDamagableShower.cs" />
     <Compile Include="Gamemode\EndPanel.cs" />
     <Compile Include="Gamemode\GameReferences.cs" />
@@ -78,9 +81,11 @@
     <Compile Include="Objects\Blockade.cs" />
     <Compile Include="Objects\MysteryBox\MysteryBox.cs" />
     <Compile Include="Objects\MysteryBox\MysteryBoxMover.cs" />
+    <Compile Include="Objects\MysteryBox\QuestionMarkBlinking.cs" />
     <Compile Include="Objects\Plank\DropPlankZone.cs" />
     <Compile Include="Objects\Plank\Plank.cs" />
-    <Compile Include="Objects\Shop.cs" />
+    <Compile Include="Objects\Radio.cs" />
+    <Compile Include="Objects\WallShop.cs" />
     <Compile Include="Objects\StatPanel.cs" />
     <Compile Include="Objects\Weapons\WeaponData.cs" />
     <Compile Include="Objects\Window\Window.cs" />
@@ -93,6 +98,10 @@
     <Compile Include="Powerups\Perks\DoubleTapPerkBottle.cs" />
     <Compile Include="Powerups\Perks\JuggerNogPerkBottle.cs" />
     <Compile Include="Powerups\Perks\PerkShop.cs" />
+    <Compile Include="Powerups\PowerUpCarpenter.cs" />
+    <Compile Include="Powerups\PowerUpDeathMachine.cs" />
+    <Compile Include="Powerups\PowerUpInstaKill.cs" />
+    <Compile Include="Powerups\PowerUpMaxAmmo.cs" />
     <Compile Include="Powerups\PowerUpNuke.cs" />
     <Compile Include="Powerups\PowerUpIndicator.cs" />
     <Compile Include="Powerups\PowerUpDoublePoints.cs" />

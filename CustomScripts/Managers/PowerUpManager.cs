@@ -1,18 +1,17 @@
 using System;
+using System.Collections;
+using CustomScripts.Powerups;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace CustomScripts
 {
-    public class PowerUpManager : MonoBehaviour
+    public class PowerUpManager : MonoBehaviourSingleton<PowerUpManager>
     {
-        public static PowerUpManager Instance { get; private set; }
-
-        private void Awake()
+        public override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
+            base.Awake();
 
             RoundManager.OnZombieKilled -= RollForPowerUp;
             RoundManager.OnZombieKilled += RollForPowerUp;
@@ -20,32 +19,71 @@ namespace CustomScripts
 
         public PowerUpDoublePoints PowerUpDoublePoints;
         public PowerUpNuke PowerUpNuke;
+        public PowerUpCarpenter PowerUpCarpenter;
+        public PowerUpInstaKill PowerUpInstaKill;
+        public PowerUpDeathMachine PowerUpDeathMachine;
+        public PowerUpMaxAmmo PowerUpMaxAmmo;
 
         public float ChanceForNukePowerUp = 1f;
         public float ChanceForX2PowerUp = 4f;
-        public int LastPowerUpRound = 0;
+        public float ChanceForInstaKill = 2f;
+        public float ChanceForCarpenter = 4f;
+        public float ChanceForDeathMachine = 1f;
+        public float ChanceForAmmo = 5f;
+
+        public bool IsPowerUpCooldown = false;
+        public bool IsMaxAmmoCooldown = false;
 
         public void RollForPowerUp(GameObject spawnPos) // TODO Temporary algorithm until more power ups are added
         {
-            // no 2 power ups in one round until better balance
-            if (LastPowerUpRound == RoundManager.Instance.RoundNumber)
+            int chance = Random.Range(0, 200);
+            if (GameSettings.LimitedAmmo && !IsMaxAmmoCooldown)
+            {
+                if (chance < ChanceForAmmo)
+                {
+                    StartCoroutine(PowerUpMaxAmmoCooldown());
+                    SpawnPowerUp(PowerUpMaxAmmo, spawnPos.transform.position);
+                    return;
+                }
+            }
+
+            if (IsPowerUpCooldown) //30 sec cooldown between power ups
                 return;
 
-            int chance = Random.Range(0, 100);
+            chance = Random.Range(0, 200);
             if (chance < ChanceForNukePowerUp)
             {
-                LastPowerUpRound = RoundManager.Instance.RoundNumber;
                 SpawnPowerUp(PowerUpNuke, spawnPos.transform.position);
                 return;
             }
 
-            chance = Random.Range(0, 100);
+            chance = Random.Range(0, 200);
             if (chance < ChanceForX2PowerUp)
             {
-                LastPowerUpRound = RoundManager.Instance.RoundNumber;
                 SpawnPowerUp(PowerUpDoublePoints, spawnPos.transform.position);
                 return;
             }
+
+            chance = Random.Range(0, 200);
+            if (chance < ChanceForCarpenter)
+            {
+                SpawnPowerUp(PowerUpCarpenter, spawnPos.transform.position);
+                return;
+            }
+
+            chance = Random.Range(0, 200);
+            if (chance < ChanceForInstaKill)
+            {
+                SpawnPowerUp(PowerUpInstaKill, spawnPos.transform.position);
+                return;
+            }
+
+            // chance = Random.Range(0, 200);
+            // if (chance < ChanceForDeathMachine)
+            // {
+            //     SpawnPowerUp(PowerUpDeathMachine, spawnPos.transform.position);
+            //     return;
+            // }
         }
 
         public void SpawnPowerUp(IPowerUp powerUp, Vector3 pos)
@@ -56,7 +94,22 @@ namespace CustomScripts
                 return;
             }
 
+            StartCoroutine(PowerUpCooldown());
             powerUp.Spawn(pos + Vector3.up);
+        }
+
+        private IEnumerator PowerUpCooldown()
+        {
+            IsPowerUpCooldown = true;
+            yield return new WaitForSeconds(30f);
+            IsPowerUpCooldown = false;
+        }
+
+        private IEnumerator PowerUpMaxAmmoCooldown()
+        {
+            IsMaxAmmoCooldown = true;
+            yield return new WaitForSeconds(30f);
+            IsMaxAmmoCooldown = false;
         }
 
         private void OnDestroy()

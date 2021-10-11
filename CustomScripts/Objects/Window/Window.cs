@@ -38,9 +38,9 @@ namespace CustomScripts
                 AllPlanks[i].transform.rotation = PlankSlots[i].transform.rotation;
                 AllPlanks[i].PhysicalObject.ForceBreakInteraction();
                 AllPlanks[i].PhysicalObject.IsPickUpLocked = true;
-
-                PlanksRemain++;
             }
+
+            PlanksRemain = PlankSlots.Count;
         }
 
         public void OnPlankTouch(Plank plank)

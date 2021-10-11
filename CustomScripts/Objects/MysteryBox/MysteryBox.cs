@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CustomScripts.Objects.Weapons;
 using UnityEngine;
 using UnityEngine.Serialization;
 using WurstMod.MappingComponents.Generic;
@@ -12,8 +13,8 @@ namespace CustomScripts
     {
         public int Cost = 950;
 
-        public List<string> WeaponsObjectID;
-        public List<string> AmmoObjectID;
+        public List<WeaponData> LootId;
+        public List<WeaponData> LimitedAmmoLootId;
 
         public ItemSpawner WeaponSpawner;
         public ItemSpawner AmmoSpawner;
@@ -54,13 +55,27 @@ namespace CustomScripts
             }
             else
             {
-                int random = Random.Range(0, WeaponsObjectID.Count);
+                int random = Random.Range(0, LootId.Count);
 
-                WeaponSpawner.ObjectId = WeaponsObjectID[random];
-                AmmoSpawner.ObjectId = AmmoObjectID[random];
+                if (GameSettings.LimitedAmmo)
+                {
+                    WeaponSpawner.ObjectId = LootId[random].DefaultSpawners[0];
+                    WeaponSpawner.Spawn();
 
-                WeaponSpawner.Spawn();
-                AmmoSpawner.Spawn();
+                    AmmoSpawner.ObjectId = LootId[random].DefaultSpawners[1];
+                    for (int i = 0; i < LootId[random].LimitedAmmoMagazineCount; i++)
+                    {
+                        AmmoSpawner.Spawn();
+                    }
+                }
+                else
+                {
+                    WeaponSpawner.ObjectId = LootId[random].DefaultSpawners[0];
+                    AmmoSpawner.ObjectId = LootId[random].DefaultSpawners[1];
+
+                    WeaponSpawner.Spawn();
+                    AmmoSpawner.Spawn();
+                }
 
                 InUse = false;
 
