@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class PowerUpNuke : MonoBehaviour, IPowerUp
+    public class PowerUpNuke : PowerUp
     {
         private Animator animator;
         public MeshRenderer Renderer;
@@ -13,7 +13,7 @@ namespace CustomScripts
             animator = transform.GetComponent<Animator>();
         }
 
-        public void Spawn(Vector3 pos)
+        public override void Spawn(Vector3 pos)
         {
             if (Renderer == null) // for error debugging
             {
@@ -32,7 +32,7 @@ namespace CustomScripts
             StartCoroutine(DespawnDelay());
         }
 
-        public void ApplyModifier()
+        public override void ApplyModifier()
         {
             StartCoroutine(DelayedKillAll());
 

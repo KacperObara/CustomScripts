@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using CustomScripts.Managers.Sound;
 using FistVR;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace CustomScripts.Objects
         private bool isThrottled = false;
 
         private AudioSource audio;
+
+        private Coroutine musicEndCoroutine;
 
         private void Awake()
         {
@@ -28,9 +31,19 @@ namespace CustomScripts.Objects
                 return;
 
             if (audio.isPlaying)
+            {
                 audio.Stop();
+                // MusicManager.Instance.PlayNextTrack();
+                //
+                // float musicLength = audio.clip.length;
+                // musicEndCoroutine = StartCoroutine(OnMusicEnd(musicLength));
+            }
             else
+            {
                 audio.Play();
+                // MusicManager.Instance.StopMusic();
+                // StopCoroutine(musicEndCoroutine);
+            }
 
             StartCoroutine(Throttle());
         }
@@ -40,6 +53,13 @@ namespace CustomScripts.Objects
             isThrottled = true;
             yield return new WaitForSeconds(.5f);
             isThrottled = false;
+        }
+
+        private IEnumerator OnMusicEnd(float endTimer)
+        {
+            yield return new WaitForSeconds(endTimer);
+            audio.Stop();
+            MusicManager.Instance.PlayNextTrack();
         }
     }
 }

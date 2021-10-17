@@ -76,6 +76,7 @@
     <Compile Include="Managers\PowerUpManager.cs" />
     <Compile Include="Managers\RoundManager.cs" />
     <Compile Include="Managers\Sound\AudioManager.cs" />
+    <Compile Include="Managers\Sound\MusicManager.cs" />
     <Compile Include="Managers\Sound\SoundPool.cs" />
     <Compile Include="Managers\Sound\SoundPoolableObject.cs" />
     <Compile Include="Objects\Blockade.cs" />

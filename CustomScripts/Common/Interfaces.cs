@@ -11,4 +11,11 @@ namespace CustomScripts
     {
         void Spawn(Vector3 pos);
     }
+
+    // Needed, because I can't serialize interfaces
+    public abstract class PowerUp : MonoBehaviour, IPowerUp
+    {
+        public abstract void ApplyModifier();
+        public abstract void Spawn(Vector3 pos);
+    }
 }

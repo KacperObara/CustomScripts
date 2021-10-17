@@ -12,6 +12,8 @@ namespace CustomScripts
         public static bool MoreEnemies;
         public static bool FasterEnemies;
         public static bool WeakerEnemies;
+        public static bool BackgroundMusic;
+
         public static bool LimitedAmmo;
 
         private void Start()
@@ -20,6 +22,7 @@ namespace CustomScripts
             FasterEnemies = false;
             WeakerEnemies = false;
             LimitedAmmo = false;
+            BackgroundMusic = false;
         }
 
         public void ToggleMoreEnemies()
@@ -37,6 +40,12 @@ namespace CustomScripts
         public void ToggleWeakerEnemies()
         {
             WeakerEnemies.Switch();
+            OnSettingsChanged?.Invoke();
+        }
+
+        public void ToggleBackgroundMusic()
+        {
+            BackgroundMusic.Switch();
             OnSettingsChanged?.Invoke();
         }
 

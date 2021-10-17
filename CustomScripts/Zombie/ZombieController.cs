@@ -94,10 +94,16 @@ namespace CustomScripts
 
         public void OnHit(int Damage)
         {
-            if (Health <= 0)
+            if (Health <= 0 || State == State.Dead)
                 return;
 
-            Debug.Log("WTF " + Health);
+            if (!GameManager.Instance.ExistingZombies.Contains(this))
+            {
+                Debug.LogWarning("Trying to kill a zombie that should not exist!");
+                Debug.LogWarning("Health: " + Health + " Damage " + Damage);
+                return;
+            }
+
             float newDamage = Damage * PlayerData.Instance.DamageModifier;
 
             Damage = (int) newDamage;
@@ -108,6 +114,10 @@ namespace CustomScripts
 
             if (Health <= 0 || PlayerData.Instance.InstaKill)
             {
+                animator.SetBool("PunchBool", false);
+                agent.speed = 0.1f;
+                animator.applyRootMotion = true;
+
                 State = State.Dead;
                 animator.SetBool("Dead", true);
                 animator.SetBool("Walk", false);

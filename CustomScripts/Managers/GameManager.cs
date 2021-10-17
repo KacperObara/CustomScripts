@@ -19,7 +19,6 @@ namespace CustomScripts
         [Tooltip("Where the player should respawn on death")]
         public Transform RespawnWaypoint;
 
-        public StartSpawner StartSpawner;
         public EndPanel EndPanel;
 
         [HideInInspector] public List<ZombieController> ExistingZombies;
@@ -73,6 +72,11 @@ namespace CustomScripts
         {
             StartCoroutine(DelayedZombieDespawn(controller));
 
+            // if (!ExistingZombies.Contains(controller))
+            // {
+            //     Debug.LogWarning("Trying to kill a zombie that should not exist!");
+            // }
+
             ExistingZombies.Remove(controller);
 
             RoundManager.Instance.ZombiesLeft--;
@@ -81,8 +85,16 @@ namespace CustomScripts
             RoundManager.OnZombieKilled?.Invoke(controller.gameObject);
 
 
-            if (ExistingZombies.Count == 0)
+            if (ExistingZombies.Count <= 0)
+            {
                 RoundManager.Instance.EndRound();
+
+                for (int i = ExistingZombies.Count - 1; i >= 0; i--)
+                {
+                    ExistingZombies[i].OnHit(9999);
+                    Debug.LogWarning("Round ended, but there are still zombies existing!");
+                }
+            }
         }
 
         private IEnumerator DelayedZombieDespawn(ZombieController controller)

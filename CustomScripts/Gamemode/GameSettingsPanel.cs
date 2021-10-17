@@ -20,6 +20,7 @@ namespace CustomScripts
         public Text MoreEnemies;
         public Text FasterEnemies;
         public Text WeakerEnemies;
+        public Text BackgroundMusic;
 
         private void Awake()
         {
@@ -33,15 +34,11 @@ namespace CustomScripts
 
         private void UpdateText()
         {
-            // MoreEnemies.Text.text   = GameSettings.MoreEnemies ? "Enabled" : "Disabled";
-            // FasterEnemies.Text.text = GameSettings.FasterEnemies ? "Enabled" : "Disabled";
-            // WeakerEnemies.Text.text = GameSettings.WeakerEnemies ? "Enabled" : "Disabled";
-            // LimitedAmmo.Text.text   = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
-
-            MoreEnemies.text   = GameSettings.MoreEnemies ? "Enabled" : "Disabled";
+            MoreEnemies.text = GameSettings.MoreEnemies ? "Enabled" : "Disabled";
             FasterEnemies.text = GameSettings.FasterEnemies ? "Enabled" : "Disabled";
             WeakerEnemies.text = GameSettings.WeakerEnemies ? "Enabled" : "Disabled";
-            LimitedAmmo.text   = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
+            LimitedAmmo.text = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
+            BackgroundMusic.text = GameSettings.BackgroundMusic ? "Enabled" : "Disabled";
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class PowerUpDoublePoints : MonoBehaviour, IPowerUp 
+    public class PowerUpDoublePoints : PowerUp
     {
         public MeshRenderer Renderer;
         private Animator animator;
@@ -16,7 +16,7 @@ namespace CustomScripts
             animator = transform.GetComponent<Animator>();
         }
 
-        public void Spawn(Vector3 pos)
+        public override void Spawn(Vector3 pos)
         {
             if (Renderer == null) // for error debugging
             {
@@ -35,7 +35,7 @@ namespace CustomScripts
             StartCoroutine(DespawnDelay());
         }
 
-        public void ApplyModifier()
+        public override void ApplyModifier()
         {
             PlayerData.Instance.MoneyModifier = 2f;
             PlayerData.Instance.PowerUpIndicator.Activate(30f);

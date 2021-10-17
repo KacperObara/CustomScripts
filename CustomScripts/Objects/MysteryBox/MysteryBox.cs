@@ -55,21 +55,23 @@ namespace CustomScripts
             }
             else
             {
-                int random = Random.Range(0, LootId.Count);
-
                 if (GameSettings.LimitedAmmo)
                 {
-                    WeaponSpawner.ObjectId = LootId[random].DefaultSpawners[0];
+                    int random = Random.Range(0, LimitedAmmoLootId.Count);
+
+                    WeaponSpawner.ObjectId = LimitedAmmoLootId[random].DefaultSpawners[0];
                     WeaponSpawner.Spawn();
 
-                    AmmoSpawner.ObjectId = LootId[random].DefaultSpawners[1];
-                    for (int i = 0; i < LootId[random].LimitedAmmoMagazineCount; i++)
+                    AmmoSpawner.ObjectId = LimitedAmmoLootId[random].DefaultSpawners[1];
+                    for (int i = 0; i < LimitedAmmoLootId[random].LimitedAmmoMagazineCount; i++)
                     {
                         AmmoSpawner.Spawn();
                     }
                 }
                 else
                 {
+                    int random = Random.Range(0, LootId.Count);
+
                     WeaponSpawner.ObjectId = LootId[random].DefaultSpawners[0];
                     AmmoSpawner.ObjectId = LootId[random].DefaultSpawners[1];
 

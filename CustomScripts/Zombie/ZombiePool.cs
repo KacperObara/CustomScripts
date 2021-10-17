@@ -20,7 +20,12 @@ namespace CustomScripts
 
         public void Spawn()
         {
-            //TODO no check if zombie is available to spawn, since there is a temporary limit to 20 zombies.
+            if (AvailableZombies.Count == 0)
+            {
+                Debug.LogWarning("Trying to spawn too many zombies!");
+                return;
+            }
+
             GameManager.Instance.SpawnZombie(AvailableZombies[0]);
             AvailableZombies.Remove(AvailableZombies[0]);
         }

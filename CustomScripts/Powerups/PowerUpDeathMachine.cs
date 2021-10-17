@@ -7,7 +7,7 @@ using ItemSpawner = WurstMod.MappingComponents.Generic.ItemSpawner;
 
 namespace CustomScripts.Powerups
 {
-    public class PowerUpDeathMachine : MonoBehaviour, IPowerUp
+    public class PowerUpDeathMachine : PowerUp
     {
         public MeshRenderer Renderer;
         private Animator animator;
@@ -18,15 +18,12 @@ namespace CustomScripts.Powerups
         private FVRPhysicalObject MinigunObject;
         private FVRPhysicalObject MagazineObject;
 
-        //private bool objectsSpawned = false;
-        //private Vector3 spawnPos;
-
         private void Awake()
         {
             animator = transform.GetComponent<Animator>();
         }
 
-        public void Spawn(Vector3 pos)
+        public override void Spawn(Vector3 pos)
         {
             if (Renderer == null) // for error debugging
             {
@@ -46,12 +43,22 @@ namespace CustomScripts.Powerups
             StartCoroutine(DespawnDelay());
         }
 
-        public void ApplyModifier()
+        public override void ApplyModifier()
         {
             MinigunSpawner.Spawn();
             MagazineSpawner.Spawn();
 
-            //StartCoroutine(DelayedTest());
+            MinigunObject = MinigunSpawner.SpawnedObject.GetComponent<FVRPhysicalObject>();
+            MinigunObject.SpawnLockable = false;
+            MinigunObject.UsesGravity = false;
+
+            MinigunObject.RootRigidbody.isKinematic = true;
+
+            MagazineObject = MagazineSpawner.SpawnedObject.GetComponent<FVRPhysicalObject>();
+            MagazineObject.SpawnLockable = false;
+            MagazineObject.UsesGravity = false;
+
+            MagazineObject.RootRigidbody.isKinematic = true;
 
             StartCoroutine(DisablePowerUpDelay(30f));
 
@@ -60,36 +67,10 @@ namespace CustomScripts.Powerups
             Despawn();
         }
 
-        // private IEnumerator DelayedTest()
-        // {
-        //     while (MinigunObject == null)
-        //     {
-        //         yield return new WaitForSeconds(.5f);
-        //         Debug.Log("Waiting");
-        //     }
-        //
-        //     Debug.Log("Almost FVRPhysicalObject");
-        //     MinigunObject = MinigunSpawner.SpawnedObject.GetComponent<FVRPhysicalObject>();
-        //     MinigunObject.SpawnLockable = false;
-        //     MinigunObject.UsesGravity = false;
-        //
-        //     MagazineObject = MagazineSpawner.SpawnedObject.GetComponent<FVRPhysicalObject>();
-        //     MagazineObject.SpawnLockable = false;
-        //     MagazineObject.UsesGravity = false;
-        // }
-
         private IEnumerator DisablePowerUpDelay(float time)
         {
             yield return new WaitForSeconds(time);
             AudioManager.Instance.PowerUpDoublePointsEndSound.Play();
-
-            MinigunObject = MinigunSpawner.SpawnedObject.GetComponent<FVRPhysicalObject>();
-            MinigunObject.SpawnLockable = false;
-            MinigunObject.UsesGravity = false;
-
-            MagazineObject = MagazineSpawner.SpawnedObject.GetComponent<FVRPhysicalObject>();
-            MagazineObject.SpawnLockable = false;
-            MagazineObject.UsesGravity = false;
 
             MinigunObject.ForceBreakInteraction();
             MinigunObject.IsPickUpLocked = true;
@@ -119,35 +100,5 @@ namespace CustomScripts.Powerups
 
             Despawn();
         }
-
-        // private IEnumerator CheckIfExists()
-        // {
-        //     while (!objectsSpawned)
-        //     {
-        //         yield return new WaitForSeconds(0.3f);
-        //
-        //         int maxColliders = 30;
-        //         Collider[] hitColliders = new Collider[maxColliders];
-        //         int numColliders = Physics.OverlapSphereNonAlloc(spawnPos, 20, hitColliders);
-        //         for (int i = 0; i < numColliders; i++)
-        //         {
-        //             hitColliders[i].SendMessage("AddDamage");
-        //
-        //             FVRPhysicalObject obj = hitColliders[i].GetComponent<FVRPhysicalObject>();
-        //
-        //             if (obj && obj.ObjectWrapper != null)
-        //             {
-        //                 if (obj.IDSpawnedFrom.ItemID == "M134Minigun")
-        //                 {
-        //                     MinigunObject = obj;
-        //                 }
-        //                 else if (obj.IDSpawnedFrom.ItemID == "MagazineM134")
-        //                 {
-        //                     MagazineObject = obj;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
     }
 }

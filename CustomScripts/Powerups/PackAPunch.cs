@@ -59,17 +59,17 @@ namespace CustomScripts.Powerups
         {
             yield return new WaitForSeconds(5f);
 
-            for (int i = 0; i < weapon.UpgradedSpawners.Count; i++)
+            for (int i = 0; i < weapon.UpgradedWeapon.DefaultSpawners.Count; i++)
             {
-                Spawners[i].ObjectId = weapon.UpgradedSpawners[i];
+                Spawners[i].ObjectId = weapon.UpgradedWeapon.DefaultSpawners[i];
                 Spawners[i].Spawn();
             }
 
             if (GameSettings.LimitedAmmo)
             {
-                for (int i = 0; i < weapon.LimitedAmmoMagazineCount - 1; i++)
+                for (int i = 0; i < weapon.UpgradedWeapon.LimitedAmmoMagazineCount - 1; i++)
                 {
-                    Spawners[1].ObjectId = weapon.UpgradedSpawners[1];
+                    Spawners[1].ObjectId = weapon.UpgradedWeapon.DefaultSpawners[1];
                     Spawners[1].Spawn();
                 }
             }

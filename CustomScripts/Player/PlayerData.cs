@@ -23,7 +23,7 @@ namespace CustomScripts.Player
 
         private void OnRoundAdvance()
         {
-            GM.CurrentPlayerBody.HealPercent(.25f);
+            GM.CurrentPlayerBody.HealPercent(1f);
         }
 
         private void OnDestroy()

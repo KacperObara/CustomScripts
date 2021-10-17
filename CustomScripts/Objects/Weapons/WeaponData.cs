@@ -12,7 +12,9 @@ namespace CustomScripts.Objects.Weapons
 
         // First is always weapon, second is always ammo (if exists) in both lists
         public List<string> DefaultSpawners;
-        public List<string> UpgradedSpawners;
+
+        //public List<string> UpgradedSpawners;
+        public WeaponData UpgradedWeapon;
         public string UpgradedAmmo;
 
         public int LimitedAmmoMagazineCount = 0;

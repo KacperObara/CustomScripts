@@ -27,23 +27,14 @@ namespace CustomScripts.Gamemode.GMDebug
 
         public void Spawn()
         {
-            StartCoroutine(SpawnAsync());
-        }
-
-        private IEnumerator SpawnAsync()
-        {
-#if !UNITY_EDITOR
             FVRObject obj = IM.OD[ObjectId];
-            var callback = obj.GetGameObjectAsync();
-            yield return callback;
-            GameObject go = Instantiate(callback.Result, transform.position, transform.rotation,
-                ObjectReferences.CustomScene.transform);
-            go.SetActive(true);
+           GameObject callback = obj.GetGameObject();
 
-            SpawnedObject = go;
-#else
-            yield return null;
-#endif
+           GameObject go = Instantiate(callback, transform.position, transform.rotation,
+               ObjectReferences.CustomScene.transform);
+           go.SetActive(true);
+
+           SpawnedObject = go;
         }
     }
 }

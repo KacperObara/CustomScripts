@@ -1,3 +1,4 @@
+using System;
 using CustomScripts.Powerups;
 using UnityEngine;
 
@@ -31,6 +32,20 @@ namespace CustomScripts.Gamemode.GMDebug
         public void SpawnMaxAmmo()
         {
             MaxAmmo.Spawn(Point.position);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                RoundManager.Instance.StartGame();
+            }
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                if (GameManager.Instance.ExistingZombies.Count > 0)
+                    GameManager.Instance.ExistingZombies[0].OnHit(99999);
+            }
         }
     }
 }

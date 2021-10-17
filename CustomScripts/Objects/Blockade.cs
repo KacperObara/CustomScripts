@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CustomScripts
 {
@@ -12,8 +14,19 @@ namespace CustomScripts
     {
         public List<ZombieSpawnPoint> UnlockableZombieSpawnPoints;
 
-        private bool alreadyUsed = false;
+        public List<Text> CostTexts;
+
         public int Cost;
+
+        private bool alreadyUsed = false;
+
+        private void OnValidate()
+        {
+            foreach (Text text in CostTexts)
+            {
+                text.text = Cost.ToString();
+            }
+        }
 
         public void Buy()
         {

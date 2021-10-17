@@ -11,6 +11,7 @@ namespace CustomScripts.Objects
     public class WallShop : MonoBehaviour
     {
         public bool ExistsInLimitedAmmo = true;
+        public bool ExistsInSpawnlock = true;
 
         public string Name;
         public int Cost;
@@ -45,6 +46,9 @@ namespace CustomScripts.Objects
         private void OnRoundStarted()
         {
             if (GameSettings.LimitedAmmo && !ExistsInLimitedAmmo)
+                gameObject.SetActive(false);
+
+            if (!GameSettings.LimitedAmmo && !ExistsInSpawnlock)
                 gameObject.SetActive(false);
         }
 

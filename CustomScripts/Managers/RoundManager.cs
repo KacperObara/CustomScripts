@@ -56,7 +56,7 @@ namespace CustomScripts
 
             RoundNumber = 0;
 
-            if (Random.Range(0, 20) == 0)
+            if (Random.Range(0, 30) == 0)
                 Debug.Log("Are you sure your front doors are locked?");
 
 
@@ -76,6 +76,12 @@ namespace CustomScripts
                 ZombieRoundCountIncrement = 2;
             else
                 ZombieRoundCountIncrement = 1;
+
+            for (int i = GameManager.Instance.ExistingZombies.Count - 1; i >= 0; i--)
+            {
+                GameManager.Instance.ExistingZombies[i].OnHit(9999);
+                Debug.LogWarning("Round advancing, but there are still zombies existing!");
+            }
 
             int zombiesToSpawn = ZombieStartCount + (RoundNumber * ZombieRoundCountIncrement);
             if (zombiesToSpawn > zombieLimit)

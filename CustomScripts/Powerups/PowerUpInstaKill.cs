@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CustomScripts.Powerups
 {
-    public class PowerUpInstaKill : MonoBehaviour, IPowerUp
+    public class PowerUpInstaKill : PowerUp
     {
         public MeshRenderer Renderer;
         private Animator animator;
@@ -14,7 +14,7 @@ namespace CustomScripts.Powerups
             animator = transform.GetComponent<Animator>();
         }
 
-        public void Spawn(Vector3 pos)
+        public override void Spawn(Vector3 pos)
         {
             if (Renderer == null) // for error debugging
             {
@@ -34,7 +34,7 @@ namespace CustomScripts.Powerups
             StartCoroutine(DespawnDelay());
         }
 
-        public void ApplyModifier()
+        public override void ApplyModifier()
         {
             PlayerData.Instance.InstaKill = true;
 
