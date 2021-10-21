@@ -8,10 +8,12 @@ namespace CustomScripts.Managers.Sound
     public class MusicManager : MonoBehaviourSingleton<MusicManager>
     {
         private AudioSource activeAudio;
+        //public AudioSource TMPMusic;
 
-        public List<MusicGroup> MusicGroups;
+        //public List<MusicGroup> MusicGroups = new List<MusicGroup>();
+        public List<AudioClip> MusicTracks;
 
-        private int currentGroup = 0;
+        //private int currentGroup = 0;
         private int currentTrack = 0;
 
         private Coroutine musicEndCoroutine;
@@ -51,9 +53,21 @@ namespace CustomScripts.Managers.Sound
             if (!GameSettings.BackgroundMusic)
                 return;
 
-            MusicGroup musicGroup = MusicGroups[currentGroup];
+            // if (MusicGroups == null || MusicGroups.Count == 0)
+            // {
+            //     Debug.Log("No MusicGroup");
+            //     MusicGroups = new List<MusicGroup>();
+            //     MusicGroups.Add(new MusicGroup()
+            //     {
+            //         MusicTracks = new List<AudioSource>() {TMPMusic}
+            //     });
+            // }
+            //
+            //
+            // MusicGroup musicGroup = MusicGroups[currentGroup];
 
-            activeAudio = musicGroup.MusicTracks[currentTrack % musicGroup.MusicTracks.Count];
+            //activeAudio = musicGroup.MusicTracks[currentTrack % musicGroup.MusicTracks.Count];
+            activeAudio.clip = MusicTracks[currentTrack];
             float musicLength = activeAudio.clip.length;
             activeAudio.Play();
             musicEndCoroutine = StartCoroutine(OnMusicEnd(musicLength));
@@ -77,23 +91,23 @@ namespace CustomScripts.Managers.Sound
             PlayNextTrack();
         }
 
-        public void ChangeMusicGroup(int newMusicGroup)
-        {
-            if (newMusicGroup >= MusicGroups.Count)
-            {
-                Debug.LogWarning("No music group with that ID!");
-                return;
-            }
+        // public void ChangeMusicGroup(int newMusicGroup)
+        // {
+        //     if (newMusicGroup >= MusicGroups.Count)
+        //     {
+        //         Debug.LogWarning("No music group with that ID!");
+        //         return;
+        //     }
+        //
+        //     currentGroup = newMusicGroup;
+        // }
 
-            currentGroup = newMusicGroup;
-        }
 
-
-        [Serializable]
-        public class MusicGroup
-        {
-            public List<AudioSource> MusicTracks = new List<AudioSource>();
-        }
+        // [Serializable]
+        // public class MusicGroup
+        // {
+        //     public List<AudioSource> MusicTracks = new List<AudioSource>();
+        // }
 
         private void OnDestroy()
         {

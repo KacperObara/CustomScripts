@@ -1,4 +1,5 @@
 using System;
+using CustomScripts.Zombie;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,7 +7,7 @@ namespace CustomScripts
 {
     public class RandomZombieSound : MonoBehaviour
     {
-        public ZombieController Controller;
+        public CustomZombieController Controller;
 
         public void Initialize()
         {

@@ -33,16 +33,16 @@ namespace CustomScripts.Objects
             if (audio.isPlaying)
             {
                 audio.Stop();
-                // MusicManager.Instance.PlayNextTrack();
-                //
-                // float musicLength = audio.clip.length;
-                // musicEndCoroutine = StartCoroutine(OnMusicEnd(musicLength));
+                MusicManager.Instance.PlayNextTrack();
+
+                float musicLength = audio.clip.length;
+                musicEndCoroutine = StartCoroutine(OnMusicEnd(musicLength));
             }
             else
             {
                 audio.Play();
-                // MusicManager.Instance.StopMusic();
-                // StopCoroutine(musicEndCoroutine);
+                MusicManager.Instance.StopMusic();
+                StopCoroutine(musicEndCoroutine);
             }
 
             StartCoroutine(Throttle());

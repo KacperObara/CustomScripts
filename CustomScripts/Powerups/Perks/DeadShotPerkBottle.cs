@@ -1,3 +1,5 @@
+using CustomScripts.Managers;
+using CustomScripts.Zombie;
 using UnityEngine;
 
 namespace CustomScripts
@@ -6,7 +8,7 @@ namespace CustomScripts
     {
         public void ApplyModifier()
         {
-            foreach (ZombieController zombie in GameManager.Instance.AllZombies)
+            foreach (CustomZombieController zombie in ZombieManager.Instance.AllZombies)
             {
                 zombie.HeadObject.GetComponent<BoxCollider>().size = new Vector3(1.25f, 1.25f, 1.25f);
             }

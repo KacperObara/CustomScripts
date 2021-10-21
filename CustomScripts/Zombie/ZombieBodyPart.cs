@@ -1,3 +1,4 @@
+using CustomScripts.Zombie;
 using FistVR;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace CustomScripts
     public class ZombieBodyPart : MonoBehaviour, IFVRDamageable
     {
         public int PartDamageMultiplier = 1;
-        public ZombieController Controller;
+        public CustomZombieController Controller;
 
         public void Damage(Damage dam)
         {

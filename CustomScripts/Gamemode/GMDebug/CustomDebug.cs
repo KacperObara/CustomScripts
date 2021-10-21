@@ -1,4 +1,5 @@
 using System;
+using CustomScripts.Managers;
 using CustomScripts.Powerups;
 using UnityEngine;
 
@@ -43,8 +44,8 @@ namespace CustomScripts.Gamemode.GMDebug
 
             if (Input.GetKeyDown(KeyCode.B))
             {
-                if (GameManager.Instance.ExistingZombies.Count > 0)
-                    GameManager.Instance.ExistingZombies[0].OnHit(99999);
+                if (ZombieManager.Instance.ExistingZombies.Count > 0)
+                    ZombieManager.Instance.ExistingZombies[0].OnHit(99999);
             }
         }
     }

@@ -21,6 +21,7 @@ namespace CustomScripts
         public Text FasterEnemies;
         public Text WeakerEnemies;
         public Text BackgroundMusic;
+        public Text UseZosigs;
 
         private void Awake()
         {
@@ -39,6 +40,7 @@ namespace CustomScripts
             WeakerEnemies.text = GameSettings.WeakerEnemies ? "Enabled" : "Disabled";
             LimitedAmmo.text = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
             BackgroundMusic.text = GameSettings.BackgroundMusic ? "Enabled" : "Disabled";
+            UseZosigs.text = GameSettings.UseZosigs ? "Enabled" : "Disabled";
         }
     }
 }

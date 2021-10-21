@@ -1,4 +1,5 @@
 using System;
+using CustomScripts.Zombie;
 using FistVR;
 using UnityEngine;
 
@@ -8,12 +9,12 @@ namespace CustomScripts
     {
         private void OnTriggerEnter(Collider other)
         {
-            other.GetComponent<ZombieController>()?.OnPlayerTouch();
+            other.GetComponent<CustomZombieController>()?.OnPlayerTouch();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            other.GetComponent<ZombieController>()?.OnPlayerStopTouch();
+            other.GetComponent<CustomZombieController>()?.OnPlayerStopTouch();
         }
 
         // private void OnTriggerEnter(Collider other)

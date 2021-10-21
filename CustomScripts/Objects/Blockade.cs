@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CustomScripts.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,7 +43,7 @@ namespace CustomScripts
             foreach (ZombieSpawnPoint zombieSP in UnlockableZombieSpawnPoints.Where(zombieSP => !zombieSP.Unlocked))
             {
                 zombieSP.Unlocked = true;
-                GameManager.Instance.ZombieSpawnPoints.Add(zombieSP);
+                ZombieManager.Instance.ZombieSpawnPoints.Add(zombieSP);
             }
 
             AudioManager.Instance.BuySound.Play();

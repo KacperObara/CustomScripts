@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CustomScripts.Objects;
 using CustomScripts.Player;
+using CustomScripts.Zombie;
 using FistVR;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,15 +14,10 @@ namespace CustomScripts
     {
         public static Action OnPointsChanged;
 
-        public List<ZombieController> AllZombies;
-        public List<ZombieSpawnPoint> ZombieSpawnPoints;
-
         [Tooltip("Where the player should respawn on death")]
         public Transform RespawnWaypoint;
 
         public EndPanel EndPanel;
-
-        [HideInInspector] public List<ZombieController> ExistingZombies;
 
         [HideInInspector] public int Points;
         [HideInInspector] public int TotalPoints; // for highscore
@@ -57,47 +53,42 @@ namespace CustomScripts
             return false;
         }
 
-        public void SpawnZombie(ZombieController zombie)
-        {
-            int random = Random.Range(0, ZombieSpawnPoints.Count);
+        // public void SpawnZombie(CustomZombieController customZombie)
+        // {
+        //     int random = Random.Range(0, ZombieSpawnPoints.Count);
+        //
+        //     customZombie.transform.position = ZombieSpawnPoints[random].transform.position;
+        //
+        //     customZombie.Initialize();
+        //
+        //     ExistingZombies.Add(customZombie);
+        // }
 
-            zombie.transform.position = ZombieSpawnPoints[random].transform.position;
+        // public void OnZombieDied(CustomZombieController controller)
+        // {
+        //     StartCoroutine(DelayedZombieDespawn(controller));
+        //
+        //     ExistingZombies.Remove(controller);
+        //
+        //     RoundManager.Instance.ZombiesLeft--;
+        //
+        //     RoundManager.OnZombiesLeftChanged?.Invoke();
+        //     RoundManager.OnZombieKilled?.Invoke(controller.gameObject);
+        //
+        //
+        //     if (ExistingZombies.Count <= 0)
+        //     {
+        //         RoundManager.Instance.EndRound();
+        //
+        //         for (int i = ExistingZombies.Count - 1; i >= 0; i--)
+        //         {
+        //             ExistingZombies[i].OnHit(9999);
+        //             Debug.LogWarning("Round ended, but there are still zombies existing!");
+        //         }
+        //     }
+        // }
 
-            zombie.Initialize();
-
-            ExistingZombies.Add(zombie);
-        }
-
-        public void OnZombieDied(ZombieController controller)
-        {
-            StartCoroutine(DelayedZombieDespawn(controller));
-
-            // if (!ExistingZombies.Contains(controller))
-            // {
-            //     Debug.LogWarning("Trying to kill a zombie that should not exist!");
-            // }
-
-            ExistingZombies.Remove(controller);
-
-            RoundManager.Instance.ZombiesLeft--;
-
-            RoundManager.OnZombiesLeftChanged?.Invoke();
-            RoundManager.OnZombieKilled?.Invoke(controller.gameObject);
-
-
-            if (ExistingZombies.Count <= 0)
-            {
-                RoundManager.Instance.EndRound();
-
-                for (int i = ExistingZombies.Count - 1; i >= 0; i--)
-                {
-                    ExistingZombies[i].OnHit(9999);
-                    Debug.LogWarning("Round ended, but there are still zombies existing!");
-                }
-            }
-        }
-
-        private IEnumerator DelayedZombieDespawn(ZombieController controller)
+        private IEnumerator DelayedZombieDespawn(CustomZombieController controller)
         {
             yield return new WaitForSeconds(5f);
             ZombiePool.Instance.Despawn(controller);
@@ -105,8 +96,8 @@ namespace CustomScripts
 
         public void StartGame()
         {
-            ZombieController.playertouches = 0;
-            ZombieController.isBeingHit = false;
+            CustomZombieController.playertouches = 0;
+            CustomZombieController.isBeingHit = false;
 
             GM.CurrentMovementManager.TeleportToPoint(GameStart.Instance.transform.position, false);
 

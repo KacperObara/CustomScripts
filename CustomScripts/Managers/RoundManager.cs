@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using CustomScripts.Managers;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -77,11 +78,7 @@ namespace CustomScripts
             else
                 ZombieRoundCountIncrement = 1;
 
-            for (int i = GameManager.Instance.ExistingZombies.Count - 1; i >= 0; i--)
-            {
-                GameManager.Instance.ExistingZombies[i].OnHit(9999);
-                Debug.LogWarning("Round advancing, but there are still zombies existing!");
-            }
+            ZombieManager.Instance.CleanZombies();
 
             int zombiesToSpawn = ZombieStartCount + (RoundNumber * ZombieRoundCountIncrement);
             if (zombiesToSpawn > zombieLimit)
@@ -89,7 +86,7 @@ namespace CustomScripts
 
             for (int i = 0; i < zombiesToSpawn; i++)
             {
-                StartCoroutine(DelayedZombieSpawn(2f + i));
+                ZombieManager.Instance.SpawnZombie(2f + i);
             }
 
             ZombiesLeft = zombiesToSpawn;
@@ -106,11 +103,7 @@ namespace CustomScripts
             StartCoroutine(DelayedAdvanceRound());
         }
 
-        private IEnumerator DelayedZombieSpawn(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            ZombiePool.Instance.Spawn();
-        }
+
 
         private IEnumerator DelayedAdvanceRound()
         {

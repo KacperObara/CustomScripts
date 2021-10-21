@@ -14,6 +14,8 @@ namespace CustomScripts
         public static bool WeakerEnemies;
         public static bool BackgroundMusic;
 
+        public static bool UseZosigs;
+
         public static bool LimitedAmmo;
 
         private void Start()
@@ -23,6 +25,7 @@ namespace CustomScripts
             WeakerEnemies = false;
             LimitedAmmo = false;
             BackgroundMusic = false;
+            UseZosigs = false;
         }
 
         public void ToggleMoreEnemies()
@@ -46,6 +49,12 @@ namespace CustomScripts
         public void ToggleBackgroundMusic()
         {
             BackgroundMusic.Switch();
+            OnSettingsChanged?.Invoke();
+        }
+
+        public void ToggleUseZosigs()
+        {
+            UseZosigs.Switch();
             OnSettingsChanged?.Invoke();
         }
 

@@ -7,6 +7,7 @@ using FistVR;
 using UnityEngine;
 using ItemSpawner = WurstMod.MappingComponents.Generic.ItemSpawner;
 using Random = UnityEngine.Random;
+using SosigSpawner = WurstMod.MappingComponents.Generic.SosigSpawner;
 
 namespace CustomScripts.Powerups
 {

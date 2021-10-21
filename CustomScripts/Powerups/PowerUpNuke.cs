@@ -1,4 +1,5 @@
 using System.Collections;
+using CustomScripts.Managers;
 using UnityEngine;
 
 namespace CustomScripts
@@ -45,9 +46,9 @@ namespace CustomScripts
         private IEnumerator DelayedKillAll()
         {
             // Reversed loop, because I'm deleting elements from this array
-            for (int i = GameManager.Instance.ExistingZombies.Count - 1; i >= 0; i--)
+            for (int i = ZombieManager.Instance.ExistingZombies.Count - 1; i >= 0; i--)
             {
-                GameManager.Instance.ExistingZombies[i].OnHit(9999);
+                ZombieManager.Instance.ExistingZombies[i].OnHit(9999);
                 yield return new WaitForSeconds(0.5f);
             }
 

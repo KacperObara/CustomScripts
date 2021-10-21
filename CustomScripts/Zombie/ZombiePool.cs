@@ -1,22 +1,32 @@
+using System;
 using System.Collections.Generic;
+using CustomScripts.Managers;
+using CustomScripts.Zombie;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace CustomScripts
 {
-    public class ZombiePool : MonoBehaviour
+    public class ZombiePool : MonoBehaviourSingleton<ZombiePool>
     {
-        public static ZombiePool Instance { get; private set; }
-
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-        }
-
         public Transform DespawnedWaypoint;
 
-        public List<ZombieController> AvailableZombies;
+        public List<CustomZombieController> AvailableZombies;
+
+        public override void Awake()
+        {
+            base.Awake();
+
+            RoundManager.OnGameStarted -= OnGameStart;
+            RoundManager.OnGameStarted += OnGameStart;
+        }
+
+        private void OnGameStart()
+        {
+            if (GameSettings.UseZosigs)
+                gameObject.SetActive(false);
+        }
+
 
         public void Spawn()
         {
@@ -26,14 +36,19 @@ namespace CustomScripts
                 return;
             }
 
-            GameManager.Instance.SpawnZombie(AvailableZombies[0]);
+            ZombieManager.Instance.OnZombieSpawned(AvailableZombies[0]);
             AvailableZombies.Remove(AvailableZombies[0]);
         }
 
-        public void Despawn(ZombieController zombie)
+        public void Despawn(CustomZombieController customZombie)
         {
-            AvailableZombies.Add(zombie);
-            zombie.transform.position = DespawnedWaypoint.position;
+            AvailableZombies.Add(customZombie);
+            customZombie.transform.position = DespawnedWaypoint.position;
+        }
+
+        private void OnDestroy()
+        {
+            RoundManager.OnGameStarted -= OnGameStart;
         }
     }
 }
