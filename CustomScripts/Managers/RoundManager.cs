@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using CustomScripts.Managers;
+using FistVR;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -64,6 +65,12 @@ namespace CustomScripts
             AdvanceRound();
 
             OnGameStarted?.Invoke();
+
+            if (GameSettings.UseZosigs)
+            {
+                GM.CurrentPlayerBody.SetHealthThreshold(1000f);
+                GM.CurrentPlayerBody.ResetHealth();
+            }
         }
 
         public void AdvanceRound()
@@ -102,7 +109,6 @@ namespace CustomScripts
             AudioManager.Instance.RoundEndSound.PlayDelayed(1);
             StartCoroutine(DelayedAdvanceRound());
         }
-
 
 
         private IEnumerator DelayedAdvanceRound()

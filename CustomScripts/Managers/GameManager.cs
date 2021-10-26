@@ -106,6 +106,12 @@ namespace CustomScripts
             GameStarted = true;
 
             RoundManager.Instance.StartGame();
+
+            if (GameSettings.UseZosigs)
+            {
+                GM.CurrentPlayerBody.SetHealthThreshold(1000f);
+                GM.CurrentPlayerBody.ResetHealth();
+            }
         }
 
         public void KillPlayer()

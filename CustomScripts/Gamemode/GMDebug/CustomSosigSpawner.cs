@@ -15,7 +15,8 @@ namespace CustomScripts.Gamemode.GMDebug
     public class CustomSosigSpawner : ComponentProxy
     {
         [Tooltip("A list of Sosig types to spawn from")]
-        public Enums.P_SosigEnemyID[] SosigTypes;
+        //public Enums.P_SosigEnemyID[] SosigTypes;
+        public SosigEnemyTemplate SosigEnemyTemplate;
 
         [Tooltip("The delay between this spawner becoming active and when it starts spawning")]
         public float SpawnDelay = 10f;
@@ -59,8 +60,8 @@ namespace CustomScripts.Gamemode.GMDebug
         private void Awake()
         {
             // Convert the sosig types to the templates
-            _enemyTemplates = SosigTypes.Select(x =>
-                ManagerSingleton<IM>.Instance.odicSosigObjsByID[(SosigEnemyID) x] as ScriptableObject).ToArray();
+            //_enemyTemplates = SosigTypes.Select(x =>
+            //    ManagerSingleton<IM>.Instance.odicSosigObjsByID[(SosigEnemyID) x] as ScriptableObject).ToArray();
         }
 
         private void Start()
@@ -95,20 +96,22 @@ namespace CustomScripts.Gamemode.GMDebug
         /// </summary>
         public void Spawn()
         {
-            Debug.Log("Trying to spawn");
 #if !UNITY_EDITOR
             // Pick a random template and spawn the Sosig
-            var template = _enemyTemplates[Random.Range(0, _enemyTemplates.Length)] as SosigEnemyTemplate;
-            SosigSpawnerHelper.SpawnSosigWithTemplate(template, new SosigSpawnerHelper.SpawnOptions
-            {
-                SpawnActivated = SpawnActivated,
-                IFF = IFF,
-                SpawnWithFullAmmo = SpawnWithFullAmmo,
-                EquipmentMode = EquipmentMode,
-                SpawnState = SpawnState,
-                SosigTargetPosition = SosigTransformTarget ? SosigTransformTarget.position : SosigTargetPosition,
-                SosigTargetRotation = SosigTransformTarget ? SosigTransformTarget.rotation.eulerAngles : SosigTargetRotation
-            }, transform.position, transform.forward);
+
+            //var template = _enemyTemplates[Random.Range(0, _enemyTemplates.Length)] as SosigEnemyTemplate;
+            SosigSpawnerHelper.SpawnSosigWithTemplate(SosigEnemyTemplate,
+                new SosigSpawnerHelper.SpawnOptions //template SosigEnemyTemplate
+                {
+                    SpawnActivated = SpawnActivated,
+                    IFF = IFF,
+                    SpawnWithFullAmmo = SpawnWithFullAmmo,
+                    EquipmentMode = EquipmentMode,
+                    SpawnState = SpawnState,
+                    SosigTargetPosition = SosigTransformTarget ? SosigTransformTarget.position : SosigTargetPosition,
+                    SosigTargetRotation =
+                        SosigTransformTarget ? SosigTransformTarget.rotation.eulerAngles : SosigTargetRotation
+                }, transform.position, transform.forward);
 #endif
         }
 

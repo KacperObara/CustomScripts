@@ -7,6 +7,13 @@ namespace CustomScripts
 {
     public class PlayerCollider : MonoBehaviour
     {
+        private Transform _transform;
+
+        private void Awake()
+        {
+            _transform = transform;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             other.GetComponent<CustomZombieController>()?.OnPlayerTouch();
@@ -17,30 +24,14 @@ namespace CustomScripts
             other.GetComponent<CustomZombieController>()?.OnPlayerStopTouch();
         }
 
-        // private void OnTriggerEnter(Collider other)
-        // {
-        //     if (other.CompareTag("Zombie"))
-        //     {
-        //         other.GetComponent<ZombieController>()?.OnPlayerTouch();
-        //     }
-        //
-        //     if (other.CompareTag("PlayerInteractable"))
-        //     {
-        //         other.GetComponent<IModifier>()?.ApplyModifier();
-        //     }
-        // }
-        //
-        // private void OnTriggerExit(Collider other)
-        // {
-        //     if (other.CompareTag("Zombie"))
-        //     {
-        //         other.GetComponent<ZombieController>()?.OnPlayerStopTouch();
-        //     }
-        // }
-
         private void Update()
         {
-            transform.position = GM.CurrentPlayerBody.Head.position;
+            _transform.position = GameReferences.Instance.PlayerHead.position;
+
+            float yRot = GameReferences.Instance.PlayerHead.rotation.eulerAngles.y;
+            Vector3 newRot = _transform.rotation.eulerAngles;
+            newRot.y = yRot;
+            _transform.rotation = Quaternion.Euler(newRot);
         }
     }
 }

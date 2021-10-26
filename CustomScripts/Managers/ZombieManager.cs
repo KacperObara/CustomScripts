@@ -14,15 +14,17 @@ namespace CustomScripts.Managers
     {
         public List<ZombieController> AllZombies;
         [HideInInspector] public List<ZombieController> ExistingZombies;
-        public List<ZombieSpawnPoint> ZombieSpawnPoints;
+
+        public List<Transform> ZombieSpawnPoints;
         public List<CustomSosigSpawner> ZosigsSpawnPoints;
 
         public override void Awake()
         {
             base.Awake();
 
+            GM.CurrentSceneSettings.SosigKillEvent += OnSosigDied;
             On.FistVR.Sosig.ProcessDamage_Damage_SosigLink += OnGetHit;
-            On.FistVR.Sosig.SosigDies += OnSosigDied;
+            //On.FistVR.Sosig.SosigDies += OnSosigDied;
         }
 
         public void SpawnZombie(float delay)
@@ -32,10 +34,10 @@ namespace CustomScripts.Managers
 
         public void OnZombieSpawned(ZombieController controller)
         {
-            ZombieSpawnPoint spawnPoint =
+            Transform spawnPoint =
                 ZombieSpawnPoints[Random.Range(0, ZombieSpawnPoints.Count)];
 
-            controller.transform.position = spawnPoint.transform.position;
+            controller.transform.position = spawnPoint.position;
 
             controller.Initialize();
             ExistingZombies.Add(controller);
@@ -47,8 +49,6 @@ namespace CustomScripts.Managers
 
             controller.Initialize();
             ExistingZombies.Add(controller);
-
-            Debug.Log("Added Zosig!");
         }
 
         public void SpawnZosig()
@@ -114,22 +114,32 @@ namespace CustomScripts.Managers
 
 
         // Zosig stuff
-        private void OnSosigDied(On.FistVR.Sosig.orig_SosigDies orig, Sosig self, Damage.DamageClass damclass,
-            Sosig.SosigDeathType deathtype)
+
+
+        // private void OnSosigDied(On.FistVR.Sosig.orig_SosigDies orig, Sosig self, Damage.DamageClass damclass,
+        //     Sosig.SosigDeathType deathtype)
+        // {
+        //     orig.Invoke(self, damclass, deathtype);
+        //     //self.GetComponent<ZosigZombieController>().OnKill();
+        // }
+
+        private void OnSosigDied(Sosig sosig)
         {
-            self.GetComponent<ZosigZombieController>().OnKill();
+            sosig.GetComponent<ZosigZombieController>().OnKill();
         }
 
         private void OnGetHit(On.FistVR.Sosig.orig_ProcessDamage_Damage_SosigLink orig, FistVR.Sosig self, Damage d,
             SosigLink link)
         {
+            orig.Invoke(self, d, link);
             self.GetComponent<ZosigZombieController>().OnGetHit(d);
         }
 
         private void OnDestroy()
         {
+            GM.CurrentSceneSettings.SosigKillEvent -= OnSosigDied;
             On.FistVR.Sosig.ProcessDamage_Damage_SosigLink -= OnGetHit;
-            On.FistVR.Sosig.SosigDies -= OnSosigDied;
+            //On.FistVR.Sosig.SosigDies -= OnSosigDied;
         }
     }
 }

@@ -60,6 +60,8 @@ namespace CustomScripts.Powerups
 
             MagazineObject.RootRigidbody.isKinematic = true;
 
+            PlayerData.Instance.DeathMachinePowerUpIndicator.Activate(30f);
+
             StartCoroutine(DisablePowerUpDelay(30f));
 
             AudioManager.Instance.PowerUpDeathMachineSound.Play();

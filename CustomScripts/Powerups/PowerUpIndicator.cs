@@ -5,19 +5,13 @@ using UnityEngine;
 
 namespace CustomScripts
 {
-    public class PowerUpIndicator : MonoBehaviour // TODO Parent it with the player collider object
+    public class PowerUpIndicator : MonoBehaviour
     {
         private ParticleSystem ps;
-        public Vector3 Offset;
 
         private void Awake()
         {
             ps = GetComponent<ParticleSystem>();
-        }
-
-        private void Update()
-        {
-            transform.position = GameReferences.Instance.Player.position + Offset;
         }
 
         public void Activate(float time)

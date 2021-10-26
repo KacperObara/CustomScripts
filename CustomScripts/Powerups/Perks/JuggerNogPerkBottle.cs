@@ -9,8 +9,16 @@ namespace CustomScripts
 
         public void ApplyModifier()
         {
-            GM.CurrentPlayerBody.SetHealthThreshold(NewHealth);
+            if (GameSettings.UseZosigs)
+            {
+                GM.CurrentPlayerBody.SetHealthThreshold(2000f);
+            }
+            else
+            {
+                GM.CurrentPlayerBody.SetHealthThreshold(NewHealth);
+            }
             GM.CurrentPlayerBody.ResetHealth();
+
 
             AudioManager.Instance.DrinkSound.Play();
             Destroy(gameObject);

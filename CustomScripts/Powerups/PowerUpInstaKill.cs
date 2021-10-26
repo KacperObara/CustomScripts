@@ -38,6 +38,7 @@ namespace CustomScripts.Powerups
         {
             PlayerData.Instance.InstaKill = true;
 
+            PlayerData.Instance.InstaKillPowerUpIndicator.Activate(30f);
             StartCoroutine(DisablePowerUpDelay(30f));
 
             AudioManager.Instance.PowerUpInstaKillSound.Play();

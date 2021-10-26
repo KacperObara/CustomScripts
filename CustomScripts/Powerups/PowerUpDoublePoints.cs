@@ -38,7 +38,7 @@ namespace CustomScripts
         public override void ApplyModifier()
         {
             PlayerData.Instance.MoneyModifier = 2f;
-            PlayerData.Instance.PowerUpIndicator.Activate(30f);
+            PlayerData.Instance.DoublePointsPowerUpIndicator.Activate(30f);
             StartCoroutine(DisablePowerUpDelay(30f));
 
             AudioManager.Instance.PowerUpX2Sound.Play();

@@ -19,6 +19,27 @@ namespace CustomScripts.Objects
             audio = GetComponent<AudioSource>();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (audio.isPlaying)
+                {
+                    audio.Stop();
+                    MusicManager.Instance.PlayNextTrack();
+
+                    float musicLength = audio.clip.length;
+                    musicEndCoroutine = StartCoroutine(OnMusicEnd(musicLength));
+                }
+                else
+                {
+                    audio.Play();
+                    MusicManager.Instance.StopMusic();
+                    StopCoroutine(musicEndCoroutine);
+                }
+            }
+        }
+
         public void Damage(Damage dam)
         {
             if (dam.Class == FistVR.Damage.DamageClass.Explosive)

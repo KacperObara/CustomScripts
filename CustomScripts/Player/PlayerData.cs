@@ -6,12 +6,17 @@ namespace CustomScripts.Player
 {
     public class PlayerData : MonoBehaviourSingleton<PlayerData>
     {
-        public PowerUpIndicator PowerUpIndicator;
+        public PowerUpIndicator DoublePointsPowerUpIndicator;
+        public PowerUpIndicator InstaKillPowerUpIndicator;
+        public PowerUpIndicator DeathMachinePowerUpIndicator;
 
         public float DamageModifier = 1f;
         public float MoneyModifier = 1f;
 
         public bool InstaKill = false;
+
+        public bool DeadShotPerkActivated = false;
+        public bool DoubleTapPerkActivated = false;
 
         public override void Awake()
         {

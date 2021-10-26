@@ -11,7 +11,8 @@ namespace CustomScripts.Managers.Sound
         //public AudioSource TMPMusic;
 
         //public List<MusicGroup> MusicGroups = new List<MusicGroup>();
-        public List<AudioClip> MusicTracks;
+        public List<AudioSource> MusicTracks;
+        ////public List<AudioClip> MusicTracks;
 
         //private int currentGroup = 0;
         private int currentTrack = 0;
@@ -28,7 +29,7 @@ namespace CustomScripts.Managers.Sound
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 GameSettings.Instance.ToggleBackgroundMusic();
             }
@@ -67,7 +68,8 @@ namespace CustomScripts.Managers.Sound
             // MusicGroup musicGroup = MusicGroups[currentGroup];
 
             //activeAudio = musicGroup.MusicTracks[currentTrack % musicGroup.MusicTracks.Count];
-            activeAudio.clip = MusicTracks[currentTrack];
+            ////activeAudio.clip = MusicTracks[currentTrack];
+            activeAudio = MusicTracks[currentTrack % MusicTracks.Count];
             float musicLength = activeAudio.clip.length;
             activeAudio.Play();
             musicEndCoroutine = StartCoroutine(OnMusicEnd(musicLength));

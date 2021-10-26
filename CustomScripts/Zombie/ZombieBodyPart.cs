@@ -11,6 +11,7 @@ namespace CustomScripts
 
         public void Damage(Damage dam)
         {
+
             if (dam.Class == FistVR.Damage.DamageClass.Melee)
             {
                 Controller.OnHit(1);

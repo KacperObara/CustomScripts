@@ -74,6 +74,7 @@
     <Compile Include="Gamemode\GMDebug\SosigSpawnerHelper.cs" />
     <Compile Include="Gamemode\HighscoreShower.cs" />
     <Compile Include="Gamemode\LeverWrapper.cs" />
+    <Compile Include="Gamemode\PointsView.cs" />
     <Compile Include="Gamemode\ZombiesGamemodeLoader.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\PowerUpManager.cs" />
@@ -111,12 +112,13 @@
     <Compile Include="Powerups\PowerUpIndicator.cs" />
     <Compile Include="Powerups\PowerUpDoublePoints.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Zombie\Ragdoll.cs" />
     <Compile Include="Zombie\RandomZombieSound.cs" />
     <Compile Include="Zombie\ZombieBodyPart.cs" />
     <Compile Include="Zombie\CustomZombieController.cs" />
     <Compile Include="Zombie\ZombieController.cs" />
     <Compile Include="Zombie\ZombiePool.cs" />
-    <Compile Include="Zombie\ZombieSpawnPoint.cs" />
+    <Compile Include="Zombie\ZosigTrigger.cs" />
     <Compile Include="Zombie\ZosigZombieController.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using CustomScripts.Managers;
 using CustomScripts.Player;
 using FistVR;
@@ -17,6 +18,9 @@ namespace CustomScripts.Zombie
     // TODO string based property lookup is inefficient
     public class CustomZombieController : ZombieController
     {
+        public Action OnZombieInitialize;
+        public Action OnZombieDied;
+
         public int PointsOnHit = 10;
         public int PointsOnKill = 100;
 
@@ -75,6 +79,7 @@ namespace CustomScripts.Zombie
             agent.enabled = true;
 
             soundPlayer.Initialize();
+            OnZombieInitialize?.Invoke();
         }
 
         private void Update()
@@ -129,6 +134,7 @@ namespace CustomScripts.Zombie
                 AudioManager.Instance.ZombieDeathSound.Play();
 
                 ZombieManager.Instance.OnZombieDied(this);
+                OnZombieDied?.Invoke();
             }
         }
 

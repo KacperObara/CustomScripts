@@ -1,19 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CustomScripts.Gamemode.GMDebug;
 using CustomScripts.Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using WurstMod.MappingComponents.Generic;
 
 namespace CustomScripts
 {
     /// <summary>
     /// Blocks both player and zombies, when it's removed, it checks and enables unlockable spawn points for zombies.
-    /// There is no reason to spawn zombies on the blocked side of the map
+    /// Because there is no reason to spawn zombies on the blocked side of the map
     /// </summary>
     public class Blockade : MonoBehaviour
     {
-        public List<ZombieSpawnPoint> UnlockableZombieSpawnPoints;
+        public List<Transform> UnlockableZombieSpawnPoints;
+        public List<CustomSosigSpawner> UnlockableZosigSpawnPoints;
 
         public List<Text> CostTexts;
 
@@ -39,11 +42,16 @@ namespace CustomScripts
 
             alreadyUsed = true;
 
-            //LINQ! - Just a less verbose way of writing things <3
-            foreach (ZombieSpawnPoint zombieSP in UnlockableZombieSpawnPoints.Where(zombieSP => !zombieSP.Unlocked))
+            foreach (Transform zombieSP in UnlockableZombieSpawnPoints)
             {
-                zombieSP.Unlocked = true;
-                ZombieManager.Instance.ZombieSpawnPoints.Add(zombieSP);
+                if (!ZombieManager.Instance.ZombieSpawnPoints.Contains(zombieSP))
+                    ZombieManager.Instance.ZombieSpawnPoints.Add(zombieSP);
+            }
+
+            foreach (CustomSosigSpawner zosigSP in UnlockableZosigSpawnPoints)
+            {
+                if (!ZombieManager.Instance.ZosigsSpawnPoints.Contains(zosigSP))
+                    ZombieManager.Instance.ZosigsSpawnPoints.Add(zosigSP);
             }
 
             AudioManager.Instance.BuySound.Play();

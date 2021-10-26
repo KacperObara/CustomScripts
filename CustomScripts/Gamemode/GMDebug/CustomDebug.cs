@@ -1,7 +1,9 @@
 using System;
 using CustomScripts.Managers;
 using CustomScripts.Powerups;
+using CustomScripts.Zombie;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CustomScripts.Gamemode.GMDebug
 {
@@ -13,7 +15,8 @@ namespace CustomScripts.Gamemode.GMDebug
         public PowerUpInstaKill InstaKill;
         public PowerUpDeathMachine DeathMachine;
         public PowerUpMaxAmmo MaxAmmo;
-
+        public PowerUpDoublePoints DoublePoints;
+        public PowerUpNuke Nuke;
 
         public void SpawnCarpenter()
         {
@@ -35,6 +38,16 @@ namespace CustomScripts.Gamemode.GMDebug
             MaxAmmo.Spawn(Point.position);
         }
 
+        public void SpawnDoublePoints()
+        {
+            DoublePoints.Spawn(Point.position);
+        }
+
+        public void SpawnNuke()
+        {
+            Nuke.Spawn(Point.position);
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.A))
@@ -47,6 +60,7 @@ namespace CustomScripts.Gamemode.GMDebug
                 if (ZombieManager.Instance.ExistingZombies.Count > 0)
                     ZombieManager.Instance.ExistingZombies[0].OnHit(99999);
             }
+
         }
     }
 }

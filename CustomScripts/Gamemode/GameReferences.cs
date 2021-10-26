@@ -11,6 +11,7 @@ namespace CustomScripts
             base.Awake();
 
             Player = DebugPlayer;
+            PlayerHead = DebugPlayerHead;
         }
 
         public Material CanBuyMat;
@@ -24,6 +25,9 @@ namespace CustomScripts
         [HideInInspector] public Transform Player;
         [SerializeField] private Transform DebugPlayer;
 
+        [HideInInspector] public Transform PlayerHead;
+        [SerializeField] private Transform DebugPlayerHead;
+
         public CustomScene CustomScene;
         public Transform Respawn;
 
@@ -33,6 +37,9 @@ namespace CustomScripts
 
             if (FistVR.GM.CurrentPlayerBody != null)
                 Player = FistVR.GM.CurrentPlayerBody.transform;
+
+            if (FistVR.GM.CurrentPlayerBody != null)
+                PlayerHead = FistVR.GM.CurrentPlayerBody.Head.transform;
 #endif
         }
 
