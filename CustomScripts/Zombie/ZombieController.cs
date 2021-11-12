@@ -6,8 +6,12 @@ namespace CustomScripts.Zombie
     {
         [HideInInspector] public Window LastInteractedWindow;
 
-        public abstract void Initialize();
-        public abstract void OnHit(float damage);
+        public Transform Target;
+
+        public abstract void Initialize(Transform newTarget);
+        public abstract void OnHit(float damage, bool headHit = false);
         public abstract void OnHitPlayer();
+
+        public abstract void ChangeTarget(Transform newTarget);
     }
 }

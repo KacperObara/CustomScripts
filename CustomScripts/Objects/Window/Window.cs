@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CustomScripts.Player;
 using FistVR;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace CustomScripts
 
     public class Window : MonoBehaviour
     {
+        public Transform ZombieWaypoint;
+
         public List<WindowPlank> PlankSlots;
 
         public int PlanksRemain { get; set; } // Overcomplicated a little
@@ -26,10 +29,10 @@ namespace CustomScripts
         private void Start()
         {
             TearPlankAudio = GetComponent<AudioSource>();
-            RepairAll();
+            RepairAll(false);
         }
 
-        public void RepairAll()
+        public void RepairAll(bool playSound = false)
         {
             for (int i = 0; i < PlankSlots.Count; i++)
             {
@@ -41,13 +44,25 @@ namespace CustomScripts
             }
 
             PlanksRemain = PlankSlots.Count;
+
+            if (playSound)
+                AudioManager.Instance.BarricadeRepairSound.Play();
         }
 
         public void OnPlankTouch(Plank plank)
         {
+            if (PlayerData.Instance.SpeedColaPerkActivated)
+            {
+                RepairAll(true);
+                return;
+            }
+
             WindowPlank windowPlank = PlankSlots.FirstOrDefault(x => x.Plank == null);
             if (!windowPlank)
+            {
+                RepairAll(false); // temporary fix, sometimes last plank cant be connected
                 return;
+            }
 
             windowPlank.Plank = plank;
 

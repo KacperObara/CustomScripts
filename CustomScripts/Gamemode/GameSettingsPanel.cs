@@ -22,6 +22,7 @@ namespace CustomScripts
         public Text WeakerEnemies;
         public Text BackgroundMusic;
         public Text UseZosigs;
+        public Text ItemSpawnerStatus;
 
         private void Awake()
         {
@@ -41,6 +42,7 @@ namespace CustomScripts
             LimitedAmmo.text = GameSettings.LimitedAmmo ? "Enabled" : "Disabled";
             BackgroundMusic.text = GameSettings.BackgroundMusic ? "Enabled" : "Disabled";
             UseZosigs.text = GameSettings.UseZosigs ? "Enabled" : "Disabled";
+            ItemSpawnerStatus.text = GameSettings.ItemSpawnerSpawned ? "Spawned" : "Not spawned";
         }
     }
 }

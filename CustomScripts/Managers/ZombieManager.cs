@@ -18,13 +18,14 @@ namespace CustomScripts.Managers
         public List<Transform> ZombieSpawnPoints;
         public List<CustomSosigSpawner> ZosigsSpawnPoints;
 
+        public Transform ZombieTarget;
+
         public override void Awake()
         {
             base.Awake();
 
             GM.CurrentSceneSettings.SosigKillEvent += OnSosigDied;
             On.FistVR.Sosig.ProcessDamage_Damage_SosigLink += OnGetHit;
-            //On.FistVR.Sosig.SosigDies += OnSosigDied;
         }
 
         public void SpawnZombie(float delay)
@@ -39,7 +40,11 @@ namespace CustomScripts.Managers
 
             controller.transform.position = spawnPoint.position;
 
-            controller.Initialize();
+            Window targetWindow = spawnPoint.GetComponent<ZombieSpawner>().WindowWaypoint;
+            if (targetWindow != null)
+                ZombieTarget = targetWindow.ZombieWaypoint;
+
+            controller.Initialize(ZombieTarget);
             ExistingZombies.Add(controller);
         }
 
@@ -47,7 +52,7 @@ namespace CustomScripts.Managers
         {
             ZombieController controller = zosig.gameObject.AddComponent<ZosigZombieController>();
 
-            controller.Initialize();
+            controller.Initialize(ZombieTarget);
             ExistingZombies.Add(controller);
         }
 
@@ -55,6 +60,10 @@ namespace CustomScripts.Managers
         {
             CustomSosigSpawner spawner =
                 ZosigsSpawnPoints[Random.Range(0, ZosigsSpawnPoints.Count)];
+
+            Window targetWindow = spawner.GetComponent<ZombieSpawner>().WindowWaypoint;
+            if (targetWindow != null)
+                ZombieTarget = targetWindow.ZombieWaypoint;
 
             spawner.SpawnCount = 1;
             spawner.SetActive(true);
@@ -95,6 +104,8 @@ namespace CustomScripts.Managers
         private IEnumerator DelayedZombieSpawn(float delay)
         {
             yield return new WaitForSeconds(delay);
+
+            ZombieTarget = GameReferences.Instance.Player;
 
             if (GameSettings.UseZosigs)
             {

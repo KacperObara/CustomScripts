@@ -48,6 +48,12 @@ namespace CustomScripts.Gamemode.GMDebug
             Nuke.Spawn(Point.position);
         }
 
+        public void KillRandom()
+        {
+            if (ZombieManager.Instance.ExistingZombies.Count > 0)
+                ZombieManager.Instance.ExistingZombies[0].OnHit(99999);
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.A))
@@ -61,6 +67,17 @@ namespace CustomScripts.Gamemode.GMDebug
                     ZombieManager.Instance.ExistingZombies[0].OnHit(99999);
             }
 
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                if (ZombieManager.Instance.ExistingZombies.Count > 0)
+                    ZombieManager.Instance.ExistingZombies[0].OnHit(1, true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                if (ZombieManager.Instance.ExistingZombies.Count > 0)
+                    ZombieManager.Instance.ExistingZombies[0].OnHit(2);
+            }
         }
     }
 }

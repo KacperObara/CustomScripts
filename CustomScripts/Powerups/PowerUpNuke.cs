@@ -21,6 +21,7 @@ namespace CustomScripts
                 Debug.LogWarning("NukePowerUp spawn failed! renderer == null Tell Kodeman");
                 return;
             }
+
             if (animator == null)
             {
                 Debug.LogWarning("NukePowerUp spawn failed! animator == null Tell Kodeman");
@@ -48,8 +49,12 @@ namespace CustomScripts
             // Reversed loop, because I'm deleting elements from this array
             for (int i = ZombieManager.Instance.ExistingZombies.Count - 1; i >= 0; i--)
             {
-                ZombieManager.Instance.ExistingZombies[i].OnHit(9999);
-                yield return new WaitForSeconds(0.5f);
+                // If someone kills zombie during this delay, method breaks without this check
+                if (ZombieManager.Instance.ExistingZombies.Count > i) // temporary solution, until I think of better one
+                {
+                    ZombieManager.Instance.ExistingZombies[i].OnHit(9999);
+                    yield return new WaitForSeconds(0.2f);
+                }
             }
 
             yield return null;

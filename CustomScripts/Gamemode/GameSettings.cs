@@ -18,6 +18,8 @@ namespace CustomScripts
 
         public static bool LimitedAmmo;
 
+        public static bool ItemSpawnerSpawned;
+
         private void Start()
         {
             MoreEnemies = false;
@@ -26,6 +28,7 @@ namespace CustomScripts
             LimitedAmmo = false;
             BackgroundMusic = false;
             UseZosigs = false;
+            ItemSpawnerSpawned = false;
         }
 
         public void ToggleMoreEnemies()
@@ -62,6 +65,12 @@ namespace CustomScripts
         {
             LimitedAmmo.Switch();
             GM.CurrentSceneSettings.IsSpawnLockingEnabled = !LimitedAmmo;
+            OnSettingsChanged?.Invoke();
+        }
+
+        public void SpawnSpawner()
+        {
+            ItemSpawnerSpawned = true;
             OnSettingsChanged?.Invoke();
         }
     }

@@ -106,12 +106,6 @@ namespace CustomScripts
             GameStarted = true;
 
             RoundManager.Instance.StartGame();
-
-            if (GameSettings.UseZosigs)
-            {
-                GM.CurrentPlayerBody.SetHealthThreshold(1000f);
-                GM.CurrentPlayerBody.ResetHealth();
-            }
         }
 
         public void KillPlayer()
@@ -133,8 +127,9 @@ namespace CustomScripts
 
             EndPanel.UpdatePanel();
 
-            if (PlayerPrefs.GetInt("BestScore") < TotalPoints)
-                PlayerPrefs.SetInt("BestScore", TotalPoints);
+            if (!GameSettings.ItemSpawnerSpawned)
+                if (PlayerPrefs.GetInt("BestScore") < TotalPoints)
+                    PlayerPrefs.SetInt("BestScore", TotalPoints);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CustomScripts.Zombie
 {
@@ -29,7 +30,12 @@ namespace CustomScripts.Zombie
             }
         }
 
-        private void ActivateRagdoll()
+        private void ActivateRagdoll(float delay)
+        {
+            StartCoroutine(DelayedActivate(delay));
+        }
+
+        private void EnableRagdoll()
         {
             animator.enabled = false;
             foreach (var rb in rbs)
@@ -46,7 +52,14 @@ namespace CustomScripts.Zombie
             foreach (var rb in rbs)
             {
                 rb.velocity = Vector3.zero;
+                rb.ResetInertiaTensor();
             }
+        }
+
+        private IEnumerator DelayedActivate(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            EnableRagdoll();
         }
 
         private void OnDestroy()

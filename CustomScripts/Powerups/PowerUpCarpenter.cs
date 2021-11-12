@@ -20,6 +20,7 @@ namespace CustomScripts.Powerups
                 Debug.LogWarning("CarpenterPowerUp spawn failed! renderer == null Tell Kodeman");
                 return;
             }
+
             if (animator == null)
             {
                 Debug.LogWarning("CarpenterPowerUp spawn failed! animator == null Tell Kodeman");
@@ -49,6 +50,8 @@ namespace CustomScripts.Powerups
             {
                 window.RepairAll();
             }
+
+            AudioManager.Instance.BarricadeRepairSound.Play();
         }
 
         private void Despawn()

@@ -35,7 +35,9 @@ namespace CustomScripts.Objects
                 {
                     audio.Play();
                     MusicManager.Instance.StopMusic();
-                    StopCoroutine(musicEndCoroutine);
+
+                    if (musicEndCoroutine != null)
+                        StopCoroutine(musicEndCoroutine);
                 }
             }
         }
@@ -63,7 +65,8 @@ namespace CustomScripts.Objects
             {
                 audio.Play();
                 MusicManager.Instance.StopMusic();
-                StopCoroutine(musicEndCoroutine);
+                if (musicEndCoroutine != null)
+                    StopCoroutine(musicEndCoroutine);
             }
 
             StartCoroutine(Throttle());

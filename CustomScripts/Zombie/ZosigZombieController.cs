@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using CustomScripts.Managers;
 using CustomScripts.Player;
@@ -23,8 +24,10 @@ namespace CustomScripts.Zombie
 
         private float cachedSpeed;
 
-        public override void Initialize()
+        public override void Initialize(Transform newTarget)
         {
+            Target = newTarget;
+
             sosig = GetComponent<Sosig>();
 
             sosig.CoreRB.gameObject.AddComponent<ZosigTrigger>().Initialize(this);
@@ -32,12 +35,12 @@ namespace CustomScripts.Zombie
             sosig.Speed_Run = 2f;
             if (RoundManager.Instance.IsFastWalking)
             {
-                sosig.Speed_Run = 4f;
+                sosig.Speed_Run = 3f;
             }
 
             if (RoundManager.Instance.IsRunning)
             {
-                sosig.Speed_Run = 7f;
+                sosig.Speed_Run = 4f;
             }
 
             if (GameSettings.FasterEnemies)
@@ -63,7 +66,12 @@ namespace CustomScripts.Zombie
                 }
             }
 
-            sosig.DamMult_Melee = .2f;
+            sosig.DamMult_Melee = 0;
+
+            sosig.Speed_Walk = sosig.Speed_Run;
+            sosig.Speed_Turning = sosig.Speed_Run;
+            sosig.Speed_Sneak = sosig.Speed_Run;
+
             //sosig.GetHeldMeleeWeapon().O.IsPickUpLocked = true;
             CheckPerks();
         }
@@ -72,17 +80,13 @@ namespace CustomScripts.Zombie
         {
             if (PlayerData.Instance.DeadShotPerkActivated)
             {
-                sosig.DamMult_Projectile = 1.25f;
+                //sosig.DamMult_Projectile = 1.25f;
+                sosig.Links[0].DamMult = 1.15f;
             }
 
             if (PlayerData.Instance.DoubleTapPerkActivated)
             {
                 sosig.DamMult_Projectile = 1.25f;
-            }
-
-            if (PlayerData.Instance.DoubleTapPerkActivated && PlayerData.Instance.DeadShotPerkActivated)
-            {
-                sosig.DamMult_Projectile = 1.5f;
             }
         }
 
@@ -95,8 +99,24 @@ namespace CustomScripts.Zombie
             if (agentUpdateTimer >= agentUpdateInterval)
             {
                 agentUpdateTimer -= agentUpdateInterval;
+
+                sosig.FallbackOrder = Sosig.SosigOrder.Assault;
+                //sosig.BrainUpdate_Assault();
+                sosig.UpdateGuardPoint(Target.position);
+                sosig.UpdateAssaultPoint(Target.position);
+
+                // Quick hack if sosigs try to follow you but on the wrong floor
+                if (sosig.Agent.destination.y + 3f < Target.position.y)
+                {
+                    sosig.UpdateAssaultPoint(Target.position + Vector3.up);
+                }
+
+                if (sosig.Agent.destination.y > Target.position.y + 3f)
+                {
+                    sosig.UpdateAssaultPoint(Target.position + Vector3.down);
+                }
+
                 sosig.SetCurrentOrder(Sosig.SosigOrder.Assault);
-                sosig.UpdateAssaultPoint(GameReferences.Instance.Player.position);
             }
         }
 
@@ -132,14 +152,20 @@ namespace CustomScripts.Zombie
             GameManager.Instance.AddPoints(10);
         }
 
-        public override void OnHit(float damage)
+        public override void OnHit(float damage, bool headHit)
         {
             //nuke
+            sosig.Links[0].LinkExplodes(Damage.DamageClass.Projectile);
             sosig.KillSosig();
         }
 
         public override void OnHitPlayer()
         {
+        }
+
+        public override void ChangeTarget(Transform newTarget)
+        {
+            Target = newTarget;
         }
 
         public void OnTriggerEntered(Collider other)
@@ -154,7 +180,10 @@ namespace CustomScripts.Zombie
             {
                 Window window = other.GetComponent<WindowTrigger>().Window;
                 if (window.IsOpen)
+                {
+                    ChangeTarget(GameReferences.Instance.Player);
                     return;
+                }
 
                 isAttackingWindow = true;
 
@@ -174,15 +203,20 @@ namespace CustomScripts.Zombie
         public void OnHitWindow()
         {
             LastInteractedWindow.OnPlankRipped();
+
+            if (LastInteractedWindow.IsOpen)
+            {
+                ChangeTarget(GameReferences.Instance.Player);
+            }
         }
 
         private IEnumerator TearPlankDelayed()
         {
-            while (!LastInteractedWindow.IsOpen)
+            while (!LastInteractedWindow.IsOpen && !isDead)
             {
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(2.5f);
 
-                if (!isDead)
+                if (!isDead && sosig.BodyState == Sosig.SosigBodyState.InControl)
                     OnHitWindow();
             }
 

@@ -11,7 +11,6 @@ namespace CustomScripts
 
         public void Damage(Damage dam)
         {
-
             if (dam.Class == FistVR.Damage.DamageClass.Melee)
             {
                 Controller.OnHit(1);
@@ -46,7 +45,11 @@ namespace CustomScripts
             if (GameSettings.LimitedAmmo)
                 damage *= 2;
 
-            Controller.OnHit(damage);
+
+            if (PartDamageMultiplier == 3)
+                Controller.OnHit(damage, true);
+            else
+                Controller.OnHit(damage);
         }
     }
 }

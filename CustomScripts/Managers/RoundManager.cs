@@ -66,11 +66,11 @@ namespace CustomScripts
 
             OnGameStarted?.Invoke();
 
-            if (GameSettings.UseZosigs)
-            {
-                GM.CurrentPlayerBody.SetHealthThreshold(1000f);
-                GM.CurrentPlayerBody.ResetHealth();
-            }
+            // if (GameSettings.UseZosigs)
+            // {
+            //     GM.CurrentPlayerBody.SetHealthThreshold(1000f);
+            //     GM.CurrentPlayerBody.ResetHealth();
+            // }
         }
 
         public void AdvanceRound()
@@ -114,9 +114,9 @@ namespace CustomScripts
         private IEnumerator DelayedAdvanceRound()
         {
             if (GameSettings.LimitedAmmo)
-                yield return new WaitForSeconds(17f);
+                yield return new WaitForSeconds(20f);
             else
-                yield return new WaitForSeconds(12f);
+                yield return new WaitForSeconds(17f);
 
             AdvanceRound();
         }

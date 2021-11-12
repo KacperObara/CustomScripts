@@ -61,6 +61,7 @@
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\MonoBehaviourSingleton.cs" />
     <Compile Include="Common\StartSpawner.cs" />
+    <Compile Include="Gamemode\GMDebug\CheatItemSpawner.cs" />
     <Compile Include="Gamemode\GMDebug\CustomDebug.cs" />
     <Compile Include="Gamemode\GMDebug\CustomItemSpawner.cs" />
     <Compile Include="Gamemode\GMDebug\CustomSosigSpawner.cs" />
@@ -103,7 +104,9 @@
     <Compile Include="Powerups\Perks\DeadShotPerkBottle.cs" />
     <Compile Include="Powerups\Perks\DoubleTapPerkBottle.cs" />
     <Compile Include="Powerups\Perks\JuggerNogPerkBottle.cs" />
+    <Compile Include="Powerups\Perks\MuleKickPerkBottle.cs" />
     <Compile Include="Powerups\Perks\PerkShop.cs" />
+    <Compile Include="Powerups\Perks\SpeedColaPerkBottle.cs" />
     <Compile Include="Powerups\PowerUpCarpenter.cs" />
     <Compile Include="Powerups\PowerUpDeathMachine.cs" />
     <Compile Include="Powerups\PowerUpInstaKill.cs" />
@@ -117,7 +120,9 @@
     <Compile Include="Zombie\ZombieBodyPart.cs" />
     <Compile Include="Zombie\CustomZombieController.cs" />
     <Compile Include="Zombie\ZombieController.cs" />
+    <Compile Include="Zombie\ZombieMovement.cs" />
     <Compile Include="Zombie\ZombiePool.cs" />
+    <Compile Include="Zombie\ZombieSpawner.cs" />
     <Compile Include="Zombie\ZosigTrigger.cs" />
     <Compile Include="Zombie\ZosigZombieController.cs" />
   </ItemGroup>
