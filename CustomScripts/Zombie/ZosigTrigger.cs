@@ -16,5 +16,10 @@ namespace CustomScripts.Zombie
         {
             zosigController.OnTriggerEntered(other);
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            zosigController.OnTriggerExited(other);
+        }
     }
 }

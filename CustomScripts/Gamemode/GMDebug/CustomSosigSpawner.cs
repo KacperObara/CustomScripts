@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using FistVR;
@@ -98,20 +99,26 @@ namespace CustomScripts.Gamemode.GMDebug
         {
 #if !UNITY_EDITOR
             // Pick a random template and spawn the Sosig
-
-            //var template = _enemyTemplates[Random.Range(0, _enemyTemplates.Length)] as SosigEnemyTemplate;
-            SosigSpawnerHelper.SpawnSosigWithTemplate(SosigEnemyTemplate,
-                new SosigSpawnerHelper.SpawnOptions //template SosigEnemyTemplate
-                {
-                    SpawnActivated = SpawnActivated,
-                    IFF = IFF,
-                    SpawnWithFullAmmo = SpawnWithFullAmmo,
-                    EquipmentMode = EquipmentMode,
-                    SpawnState = SpawnState,
-                    SosigTargetPosition = SosigTransformTarget ? SosigTransformTarget.position : SosigTargetPosition,
-                    SosigTargetRotation =
-                        SosigTransformTarget ? SosigTransformTarget.rotation.eulerAngles : SosigTargetRotation
-                }, transform.position, transform.forward);
+            try
+            {
+                SosigSpawnerHelper.SpawnSosigWithTemplate(SosigEnemyTemplate,
+                    new SosigSpawnerHelper.SpawnOptions
+                    {
+                        SpawnActivated = SpawnActivated,
+                        IFF = IFF,
+                        SpawnWithFullAmmo = SpawnWithFullAmmo,
+                        EquipmentMode = EquipmentMode,
+                        SpawnState = SpawnState,
+                        SosigTargetPosition = SosigTransformTarget ? SosigTransformTarget.position : SosigTargetPosition,
+                        SosigTargetRotation =
+                            SosigTransformTarget ? SosigTransformTarget.rotation.eulerAngles : SosigTargetRotation
+                    }, transform.position, transform.forward);
+            }
+            catch (Exception e)
+            {
+                ErrorShower.Instance.Show();
+                throw;
+            }
 #endif
         }
 

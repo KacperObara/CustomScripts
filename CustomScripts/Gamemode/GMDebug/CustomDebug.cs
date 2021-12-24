@@ -1,5 +1,6 @@
 using System;
 using CustomScripts.Managers;
+using CustomScripts.Objects;
 using CustomScripts.Powerups;
 using CustomScripts.Zombie;
 using UnityEngine;
@@ -11,12 +12,16 @@ namespace CustomScripts.Gamemode.GMDebug
     {
         public Transform Point;
 
+        public AnimationCurve TestCurve;
+
         public PowerUpCarpenter Carpenter;
         public PowerUpInstaKill InstaKill;
         public PowerUpDeathMachine DeathMachine;
         public PowerUpMaxAmmo MaxAmmo;
         public PowerUpDoublePoints DoublePoints;
         public PowerUpNuke Nuke;
+
+        public ElectroTrap Trap;
 
         public void SpawnCarpenter()
         {
@@ -58,6 +63,7 @@ namespace CustomScripts.Gamemode.GMDebug
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
+                GameSettings.Instance.ToggleUseZosigs();
                 RoundManager.Instance.StartGame();
             }
 
@@ -77,6 +83,11 @@ namespace CustomScripts.Gamemode.GMDebug
             {
                 if (ZombieManager.Instance.ExistingZombies.Count > 0)
                     ZombieManager.Instance.ExistingZombies[0].OnHit(2);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Trap.OnLeverPull();
             }
         }
     }

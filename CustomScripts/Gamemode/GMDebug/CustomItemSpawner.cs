@@ -1,4 +1,5 @@
 using System.Collections;
+using CustomScripts.Player;
 using FistVR;
 using UnityEngine;
 using WurstMod.MappingComponents;
@@ -28,13 +29,13 @@ namespace CustomScripts.Gamemode.GMDebug
         public void Spawn()
         {
             FVRObject obj = IM.OD[ObjectId];
-           GameObject callback = obj.GetGameObject();
+            GameObject callback = obj.GetGameObject();
 
-           GameObject go = Instantiate(callback, transform.position, transform.rotation,
-               ObjectReferences.CustomScene.transform);
-           go.SetActive(true);
+            GameObject go = Instantiate(callback, transform.position, transform.rotation,
+                ObjectReferences.CustomScene.transform);
+            go.SetActive(true);
 
-           SpawnedObject = go;
+            SpawnedObject = go;
         }
     }
 }

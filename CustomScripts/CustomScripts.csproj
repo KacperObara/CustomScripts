@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -71,10 +72,14 @@
     <Compile Include="Gamemode\GameSettings.cs" />
     <Compile Include="Gamemode\GameSettingsPanel.cs" />
     <Compile Include="Gamemode\GameStart.cs" />
+    <Compile Include="Gamemode\GMDebug\ErrorShower.cs" />
     <Compile Include="Gamemode\GMDebug\MoveTest.cs" />
     <Compile Include="Gamemode\GMDebug\SosigSpawnerHelper.cs" />
+    <Compile Include="Gamemode\MagazineWrapper.cs" />
+    <Compile Include="Gamemode\WeaponWrapper.cs" />
     <Compile Include="Gamemode\HighscoreShower.cs" />
     <Compile Include="Gamemode\LeverWrapper.cs" />
+    <Compile Include="Gamemode\PlayerSpawner.cs" />
     <Compile Include="Gamemode\PointsView.cs" />
     <Compile Include="Gamemode\ZombiesGamemodeLoader.cs" />
     <Compile Include="Managers\GameManager.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="Managers\Sound\SoundPoolableObject.cs" />
     <Compile Include="Managers\ZombieManager.cs" />
     <Compile Include="Objects\Blockade.cs" />
+    <Compile Include="Objects\ElectroTrap.cs" />
     <Compile Include="Objects\MysteryBox\MysteryBox.cs" />
     <Compile Include="Objects\MysteryBox\MysteryBoxMover.cs" />
     <Compile Include="Objects\MysteryBox\QuestionMarkBlinking.cs" />
@@ -106,7 +112,10 @@
     <Compile Include="Powerups\Perks\JuggerNogPerkBottle.cs" />
     <Compile Include="Powerups\Perks\MuleKickPerkBottle.cs" />
     <Compile Include="Powerups\Perks\PerkShop.cs" />
+    <Compile Include="Powerups\Perks\PHDFlopperPerkBottle.cs" />
+    <Compile Include="Powerups\Perks\QuickRevivePerkBottle.cs" />
     <Compile Include="Powerups\Perks\SpeedColaPerkBottle.cs" />
+    <Compile Include="Powerups\Perks\StaminUpPerkBottle.cs" />
     <Compile Include="Powerups\PowerUpCarpenter.cs" />
     <Compile Include="Powerups\PowerUpDeathMachine.cs" />
     <Compile Include="Powerups\PowerUpInstaKill.cs" />

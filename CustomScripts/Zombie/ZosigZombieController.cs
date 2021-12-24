@@ -13,7 +13,7 @@ namespace CustomScripts.Zombie
     public class ZosigZombieController : ZombieController
     {
         private float agentUpdateTimer;
-        private const float agentUpdateInterval = 1f;
+        private const float agentUpdateInterval = .5f;
 
         private Sosig sosig;
 
@@ -66,13 +66,28 @@ namespace CustomScripts.Zombie
                 }
             }
 
-            sosig.DamMult_Melee = 0;
+            sosig.DamMult_Melee = 0.2f;
 
             sosig.Speed_Walk = sosig.Speed_Run;
             sosig.Speed_Turning = sosig.Speed_Run;
             sosig.Speed_Sneak = sosig.Speed_Run;
+            sosig.Speed_Crawl = sosig.Speed_Run;
 
-            //sosig.GetHeldMeleeWeapon().O.IsPickUpLocked = true;
+            // Setting weapon IFF for disabling Friendly damage
+            for (int i = 0; i < sosig.Hands.Count; i++)
+            {
+                if (sosig.Hands[i].HeldObject != null)
+                {
+                    sosig.Hands[i].HeldObject.SourceIFF = sosig.E.IFFCode;
+                    sosig.Hands[i].HeldObject.E.IFFCode = sosig.E.IFFCode;
+                }
+            }
+
+            sosig.Hand_Primary.HeldObject.SourceIFF = sosig.E.IFFCode;
+            sosig.Hand_Primary.HeldObject.E.IFFCode = sosig.E.IFFCode;
+
+            cachedSpeed = sosig.Speed_Run;
+
             CheckPerks();
         }
 
@@ -81,7 +96,7 @@ namespace CustomScripts.Zombie
             if (PlayerData.Instance.DeadShotPerkActivated)
             {
                 //sosig.DamMult_Projectile = 1.25f;
-                sosig.Links[0].DamMult = 1.15f;
+                sosig.Links[0].DamMult = 1.35f;
             }
 
             if (PlayerData.Instance.DoubleTapPerkActivated)
@@ -101,7 +116,6 @@ namespace CustomScripts.Zombie
                 agentUpdateTimer -= agentUpdateInterval;
 
                 sosig.FallbackOrder = Sosig.SosigOrder.Assault;
-                //sosig.BrainUpdate_Assault();
                 sosig.UpdateGuardPoint(Target.position);
                 sosig.UpdateAssaultPoint(Target.position);
 
@@ -117,6 +131,25 @@ namespace CustomScripts.Zombie
                 }
 
                 sosig.SetCurrentOrder(Sosig.SosigOrder.Assault);
+
+                sosig.FallbackOrder = Sosig.SosigOrder.Assault; // I know I'm calling this two times
+            }
+
+            if (isAttackingWindow)
+            {
+                sosig.Speed_Run = 0;
+                sosig.Speed_Walk = 0;
+                sosig.Speed_Turning = 0;
+                sosig.Speed_Crawl = 0;
+                sosig.Speed_Sneak = 0;
+            }
+            else
+            {
+                sosig.Speed_Run = cachedSpeed;
+                sosig.Speed_Walk = cachedSpeed;
+                sosig.Speed_Turning = cachedSpeed;
+                sosig.Speed_Crawl = cachedSpeed;
+                sosig.Speed_Sneak = cachedSpeed;
             }
         }
 
@@ -189,10 +222,29 @@ namespace CustomScripts.Zombie
 
                 cachedSpeed = sosig.Speed_Run;
                 sosig.Speed_Run = 0;
+                sosig.Speed_Walk = 0;
+                sosig.Speed_Turning = 0;
+                sosig.Speed_Crawl = 0;
+                sosig.Speed_Sneak = 0;
 
                 LastInteractedWindow = window;
                 OnTouchingWindow();
             }
+        }
+
+        public void OnTriggerExited(Collider other)
+        {
+            // if (other.GetComponent<WindowTrigger>())
+            // {
+            //     isAttackingWindow = false;
+            //
+            //     Window window = other.GetComponent<WindowTrigger>().Window;
+            //     if (window.IsOpen)
+            //     {
+            //         ChangeTarget(GameReferences.Instance.Player);
+            //         return;
+            //     }
+            // }
         }
 
         public void OnTouchingWindow() // refactor this
@@ -222,6 +274,10 @@ namespace CustomScripts.Zombie
 
             isAttackingWindow = false;
             sosig.Speed_Run = cachedSpeed;
+            sosig.Speed_Walk = cachedSpeed;
+            sosig.Speed_Turning = cachedSpeed;
+            sosig.Speed_Crawl = cachedSpeed;
+            sosig.Speed_Sneak = cachedSpeed;
         }
 
         private IEnumerator DelayedDespawn()

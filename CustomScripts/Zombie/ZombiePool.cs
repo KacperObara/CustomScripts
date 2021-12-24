@@ -23,7 +23,7 @@ namespace CustomScripts
 
         private void OnGameStart()
         {
-            if (GameSettings.UseZosigs)
+            if (!GameSettings.UseCustomEnemies)
                 gameObject.SetActive(false);
         }
 

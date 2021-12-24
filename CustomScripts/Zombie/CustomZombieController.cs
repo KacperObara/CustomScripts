@@ -35,7 +35,7 @@ namespace CustomScripts.Zombie
         private RandomZombieSound soundPlayer;
 
         private float agentUpdateTimer;
-        private const float agentUpdateInterval = 1f;
+        private const float agentUpdateInterval = .15f;
 
         public int RunAnimationIndex;
         public int AnimIndex;
@@ -51,6 +51,7 @@ namespace CustomScripts.Zombie
         {
             Target = newTarget;
 
+            agent.updateRotation = false;
             agentUpdateTimer = agentUpdateInterval;
             animator.SetBool("IsDead", false);
             animator.SetBool("IsAttacking", false);
@@ -68,7 +69,9 @@ namespace CustomScripts.Zombie
                 AnimIndex = random;
 
                 if (GameSettings.FasterEnemies)
-                    animator.SetFloat("FastWalkSpeed", 1.2f);
+                    animator.SetFloat("FastWalkSpeed", 1.05f);
+                else
+                    animator.SetFloat("FastWalkSpeed", .85f);
             }
 
             if (RoundManager.Instance.IsRunning)
@@ -80,9 +83,9 @@ namespace CustomScripts.Zombie
                 AnimIndex = random;
 
                 if (GameSettings.FasterEnemies)
-                    animator.SetFloat("RunSpeed", Random.Range(.75f, .85f));
+                    animator.SetFloat("RunSpeed", Random.Range(.9f, .95f));
                 else
-                    animator.SetFloat("RunSpeed", Random.Range(.9f, 1f));
+                    animator.SetFloat("RunSpeed", Random.Range(.8f, .85f));
             }
 
             if (!RoundManager.Instance.IsRunning && !RoundManager.Instance.IsFastWalking) // walking
@@ -122,6 +125,13 @@ namespace CustomScripts.Zombie
             {
                 agentUpdateTimer -= agentUpdateInterval;
                 agent.SetDestination(Target.position);
+            }
+
+            if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
+            {
+                //transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation,
+                    Quaternion.LookRotation(agent.velocity.normalized), 10 * Time.deltaTime);
             }
         }
 

@@ -11,7 +11,7 @@ namespace CustomScripts
         {
             PlayerData.Instance.DeadShotPerkActivated = true;
 
-            if (GameSettings.UseZosigs)
+            if (!GameSettings.UseCustomEnemies)
             {
                 for (int i = 0; i < ZombieManager.Instance.ExistingZombies.Count; i++)
                 {

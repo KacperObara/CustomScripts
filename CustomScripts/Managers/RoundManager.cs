@@ -34,8 +34,8 @@ namespace CustomScripts
         public int ZombieFastWalkRound = 4;
         public int ZombieRunRound = 6;
 
-        public int ZombieHP => ZombieStartHp + (RoundNumber * ZombieRoundHpIncrement); // 3 4 5 6 7...
-        public int WeakerZombieHP => ZombieStartHp + (RoundNumber / 2); // 2 3 3 4 4 5 5...
+        public int ZombieHP => ZombieStartHp + (Mathf.CeilToInt((RoundNumber * ZombieRoundHpIncrement) / .5f));
+        public int WeakerZombieHP => ZombieStartHp + (RoundNumber / 3);
         public bool IsFastWalking => RoundNumber >= ZombieFastWalkRound;
         public bool IsRunning => RoundNumber >= ZombieRunRound;
 

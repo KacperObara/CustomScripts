@@ -14,7 +14,7 @@ namespace CustomScripts
         public static bool WeakerEnemies;
         public static bool BackgroundMusic;
 
-        public static bool UseZosigs;
+        public static bool UseCustomEnemies;
 
         public static bool LimitedAmmo;
 
@@ -27,7 +27,7 @@ namespace CustomScripts
             WeakerEnemies = false;
             LimitedAmmo = false;
             BackgroundMusic = false;
-            UseZosigs = false;
+            UseCustomEnemies = false;
             ItemSpawnerSpawned = false;
         }
 
@@ -57,7 +57,7 @@ namespace CustomScripts
 
         public void ToggleUseZosigs()
         {
-            UseZosigs.Switch();
+            UseCustomEnemies.Switch();
             OnSettingsChanged?.Invoke();
         }
 

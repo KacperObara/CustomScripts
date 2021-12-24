@@ -5,6 +5,7 @@ using CustomScripts.Gamemode.GMDebug;
 using CustomScripts.Zombie;
 using FistVR;
 using UnityEngine;
+using AIMeleeWeapon = On.FistVR.AIMeleeWeapon;
 using Random = UnityEngine.Random;
 using SosigSpawner = WurstMod.MappingComponents.Generic.SosigSpawner;
 
@@ -71,7 +72,7 @@ namespace CustomScripts.Managers
 
         public void OnZombieDied(ZombieController controller)
         {
-            if (!GameSettings.UseZosigs)
+            if (GameSettings.UseCustomEnemies)
                 StartCoroutine(DelayedZombieDespawn(controller.GetComponent<CustomZombieController>()));
 
             ExistingZombies.Remove(controller);
@@ -107,7 +108,7 @@ namespace CustomScripts.Managers
 
             ZombieTarget = GameReferences.Instance.Player;
 
-            if (GameSettings.UseZosigs)
+            if (!GameSettings.UseCustomEnemies)
             {
                 SpawnZosig();
             }
@@ -142,6 +143,22 @@ namespace CustomScripts.Managers
         private void OnGetHit(On.FistVR.Sosig.orig_ProcessDamage_Damage_SosigLink orig, FistVR.Sosig self, Damage d,
             SosigLink link)
         {
+            // Disable friendly fire
+            if (d.Class == Damage.DamageClass.Melee &&
+                d.Source_IFF != GM.CurrentPlayerBody.GetPlayerIFF()) //self.E.IFFCode
+            {
+                d.Dam_Blinding = 0;
+                d.Dam_TotalKinetic = 0;
+                d.Dam_TotalEnergetic = 0;
+                d.Dam_Blunt = 0;
+                d.Dam_Chilling = 0;
+                d.Dam_Cutting = 0;
+                d.Dam_Thermal = 0;
+                d.Dam_EMP = 0;
+                d.Dam_Piercing = 0;
+                d.Dam_Stunning = 0;
+            }
+
             orig.Invoke(self, d, link);
             self.GetComponent<ZosigZombieController>().OnGetHit(d);
         }

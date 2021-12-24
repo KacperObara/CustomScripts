@@ -1,4 +1,5 @@
 using System.Collections;
+using CustomScripts.Gamemode;
 using FistVR;
 using UnityEngine;
 
@@ -39,18 +40,26 @@ namespace CustomScripts.Powerups
             foreach (FVRQuickBeltSlot slot in GM.CurrentPlayerBody.QuickbeltSlots)
             {
                 FVRFireArmMagazine magazine = slot.CurObject as FVRFireArmMagazine;
+                MagazineWrapper magazineWrapper = null;
                 if (magazine)
                 {
-                    magazine.ReloadMagWithType(magazine.DefaultLoadingPattern.Classes[0]);
+                    magazineWrapper = magazine.GetComponent<MagazineWrapper>();
+                    if (magazineWrapper)
+                        magazine.ReloadMagWithType(magazineWrapper.RoundClass);
+                    else
+                        magazine.ReloadMagWithType(magazine.DefaultLoadingPattern.Classes[0]);
                 }
 
                 FVRFireArmClip clip = slot.CurObject as FVRFireArmClip;
+
                 if (clip)
                 {
-                    clip.ReloadClipWithType(clip.DefaultLoadingPattern.Classes[0]);
+                    magazineWrapper = clip.GetComponent<MagazineWrapper>();
+                    if (magazineWrapper)
+                        clip.ReloadClipWithType(magazineWrapper.RoundClass);
+                    else
+                        clip.ReloadClipWithType(clip.DefaultLoadingPattern.Classes[0]);
                 }
-
-
             }
 
             AudioManager.Instance.PowerUpMaxAmmoSound.Play();
