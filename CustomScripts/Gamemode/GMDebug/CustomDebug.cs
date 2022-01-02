@@ -59,6 +59,12 @@ namespace CustomScripts.Gamemode.GMDebug
                 ZombieManager.Instance.ExistingZombies[0].OnHit(99999);
         }
 
+        public void IncrementRound()
+        {
+            RoundManager.Instance.RoundNumber++;
+            Debug.Log(RoundManager.Instance.RoundNumber);
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.A))

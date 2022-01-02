@@ -5,6 +5,7 @@ using CustomScripts.Gamemode;
 using FistVR;
 using UnityEngine;
 using Valve.VR;
+using FVRPlayerBody = On.FistVR.FVRPlayerBody;
 
 namespace CustomScripts.Player
 {
@@ -28,6 +29,7 @@ namespace CustomScripts.Player
         public bool SpeedColaPerkActivated = false;
         public bool QuickRevivePerkActivated = false;
         public bool StaminUpPerkActivated = false;
+        public bool PHDFlopperPerkActivated = false;
 
         public override void Awake()
         {
@@ -40,7 +42,10 @@ namespace CustomScripts.Player
 
             On.FistVR.FVRPhysicalObject.BeginInteraction += OnPhysicalObjectStartInteraction;
             On.FistVR.FVRPhysicalObject.EndInteraction += OnPhysicalObjectEndInteraction;
-            On.FistVR.FVRPhysicalObject.EndInteractionIntoInventorySlot += OnPhysicalObjectEndInteractionIntoInventorySlot;
+            On.FistVR.FVRPhysicalObject.EndInteractionIntoInventorySlot +=
+                OnPhysicalObjectEndInteractionIntoInventorySlot;
+            //On.FistVR.FVRPlayerBody.RegisterPlayerHit += OnPlayerHit;
+            On.FistVR.FVRPlayerHitbox.Damage_Damage += OnPlayerHit;
 
             DeadShotPerkActivated = false;
             DoubleTapPerkActivated = false;
@@ -48,6 +53,32 @@ namespace CustomScripts.Player
             QuickRevivePerkActivated = false;
             StaminUpPerkActivated = false;
         }
+
+        private void OnPlayerHit(On.FistVR.FVRPlayerHitbox.orig_Damage_Damage orig, FistVR.FVRPlayerHitbox self,
+            Damage d)
+        {
+            if (PHDFlopperPerkActivated && d.Class == Damage.DamageClass.Explosive)
+            {
+                d.Dam_TotalKinetic *= .3f;
+                d.Dam_TotalEnergetic *= .3f;
+            }
+
+            orig.Invoke(self, d);
+        }
+
+        // private bool OnPlayerHit(FVRPlayerBody.orig_RegisterPlayerHit orig, FistVR.FVRPlayerBody self,
+        //     float damagepoints, bool fromself)
+        // {
+        //     Debug.Log(PHDFlopperPerkActivated + " fromself? " + fromself);
+        //     if (PHDFlopperPerkActivated && fromself)
+        //     {
+        //         Debug.Log("Player Hit by himself: " + damagepoints);
+        //         damagepoints *= .3f;
+        //         Debug.Log("Reduced to: " + damagepoints);
+        //     }
+        //
+        //     return orig.Invoke(self, damagepoints, fromself);
+        // }
 
 
         private void OnPhysicalObjectStartInteraction(On.FistVR.FVRPhysicalObject.orig_BeginInteraction orig,
@@ -76,7 +107,9 @@ namespace CustomScripts.Player
             StartCoroutine(DelayedItemChange());
         }
 
-        private void OnPhysicalObjectEndInteractionIntoInventorySlot(On.FistVR.FVRPhysicalObject.orig_EndInteractionIntoInventorySlot orig, FVRPhysicalObject self, FVRViveHand hand, FVRQuickBeltSlot slot)
+        private void OnPhysicalObjectEndInteractionIntoInventorySlot(
+            On.FistVR.FVRPhysicalObject.orig_EndInteractionIntoInventorySlot orig, FVRPhysicalObject self,
+            FVRViveHand hand, FVRQuickBeltSlot slot)
         {
             orig.Invoke(self, hand, slot);
             StartCoroutine(DelayedItemChange());
@@ -156,7 +189,10 @@ namespace CustomScripts.Player
 
             On.FistVR.FVRPhysicalObject.BeginInteraction -= OnPhysicalObjectStartInteraction;
             On.FistVR.FVRPhysicalObject.EndInteraction -= OnPhysicalObjectEndInteraction;
-            On.FistVR.FVRPhysicalObject.EndInteractionIntoInventorySlot -= OnPhysicalObjectEndInteractionIntoInventorySlot;
+            On.FistVR.FVRPhysicalObject.EndInteractionIntoInventorySlot -=
+                OnPhysicalObjectEndInteractionIntoInventorySlot;
+            //On.FistVR.FVRPlayerBody.RegisterPlayerHit -= OnPlayerHit;
+            On.FistVR.FVRPlayerHitbox.Damage_Damage -= OnPlayerHit;
 
             GM.Options.MovementOptions.ArmSwingerBaseSpeeMagnitudes = new float[6]
             {

@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using CustomScripts.Gamemode;
 using FistVR;
 using UnityEngine;
@@ -39,8 +41,8 @@ namespace CustomScripts.Powerups
         {
             foreach (FVRQuickBeltSlot slot in GM.CurrentPlayerBody.QuickbeltSlots)
             {
-                FVRFireArmMagazine magazine = slot.CurObject as FVRFireArmMagazine;
                 MagazineWrapper magazineWrapper = null;
+                FVRFireArmMagazine magazine = slot.CurObject as FVRFireArmMagazine;
                 if (magazine)
                 {
                     magazineWrapper = magazine.GetComponent<MagazineWrapper>();
@@ -51,7 +53,6 @@ namespace CustomScripts.Powerups
                 }
 
                 FVRFireArmClip clip = slot.CurObject as FVRFireArmClip;
-
                 if (clip)
                 {
                     magazineWrapper = clip.GetComponent<MagazineWrapper>();
@@ -59,6 +60,28 @@ namespace CustomScripts.Powerups
                         clip.ReloadClipWithType(magazineWrapper.RoundClass);
                     else
                         clip.ReloadClipWithType(clip.DefaultLoadingPattern.Classes[0]);
+                }
+
+                Speedloader speedloader = slot.CurObject as Speedloader;
+                if (speedloader)
+                {
+                    magazineWrapper = speedloader.GetComponent<MagazineWrapper>();
+                    if (magazineWrapper)
+                        speedloader.ReloadClipWithType(magazineWrapper.RoundClass);
+                    else
+                    {
+                        try
+                        {
+                            List<FVRObject> compatibleRounds =
+                                IM.OD[speedloader.ObjectWrapper.ItemID].CompatibleSingleRounds;
+                            FVRFireArmRound round = compatibleRounds[0].GetGameObject().GetComponent<FVRFireArmRound>();
+                            speedloader.ReloadClipWithType(round.RoundClass);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogWarning("Raygun failed to reload it's ammo, tell Kodeman");
+                        }
+                    }
                 }
             }
 

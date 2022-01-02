@@ -13,6 +13,8 @@ namespace CustomScripts.Powerups.Perks
         {
             Respawn.position = RespawnWaypoint.position;
             PlayerData.Instance.QuickRevivePerkActivated = true;
+            AudioManager.Instance.DrinkSound.Play();
+            Destroy(gameObject);
         }
     }
 }
